@@ -1,0 +1,351 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7D07EC542265BD90008D010D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D07EC532265BD90008D010D /* main.c */; };
+		7DFC44EC227EB05000EC1D81 /* Easy_66_加一.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC44EB227EB05000EC1D81 /* Easy_66_加一.c */; };
+		7DFC44EE227EDA6700EC1D81 /* Easy_283_移动零.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC44ED227EDA6700EC1D81 /* Easy_283_移动零.c */; };
+		7DFC689122811AE2002DFE97 /* Middle_36_有效的数独.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC689022811AE2002DFE97 /* Middle_36_有效的数独.c */; };
+		7DFC6895228271CA002DFE97 /* Middle_48_旋转图像.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC6894228271CA002DFE97 /* Middle_48_旋转图像.c */; };
+		7DFF9067228004EE000BF680 /* Easy_1_两数之和.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFF9066228004EE000BF680 /* Easy_1_两数之和.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7D07EC4E2265BD90008D010D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7D048ADC226EE2CB0046354C /* Easy_136_只出现一次的数字.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_136_只出现一次的数字.c"; sourceTree = "<group>"; };
+		7D07EC502265BD90008D010D /* LeetCode_C */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LeetCode_C; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D07EC532265BD90008D010D /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		7D07EC5B2265BDAA008D010D /* Easy_121_股票.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_121_股票.c"; sourceTree = "<group>"; };
+		7D07EC5F2265C6EE008D010D /* Easy_122_股票2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_122_股票2.c"; sourceTree = "<group>"; };
+		7D4D06032271D2650064488C /* Middle_137_只出现一次的数字2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Middle_137_只出现一次的数字2.c"; sourceTree = "<group>"; };
+		7D4D06052271D5AB0064488C /* Easy_349_两个数组的交集.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_349_两个数组的交集.c"; sourceTree = "<group>"; };
+		7DF8ADA522759FDC00281130 /* Easy_350_两个数组的交集2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_350_两个数组的交集2.c"; sourceTree = "<group>"; };
+		7DFC44EB227EB05000EC1D81 /* Easy_66_加一.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_66_加一.c"; sourceTree = "<group>"; };
+		7DFC44ED227EDA6700EC1D81 /* Easy_283_移动零.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_283_移动零.c"; sourceTree = "<group>"; };
+		7DFC58242269B774008B3A75 /* Easy_217_存在重复元素.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_217_存在重复元素.c"; sourceTree = "<group>"; };
+		7DFC689022811AE2002DFE97 /* Middle_36_有效的数独.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Middle_36_有效的数独.c"; sourceTree = "<group>"; };
+		7DFC6894228271CA002DFE97 /* Middle_48_旋转图像.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Middle_48_旋转图像.c"; sourceTree = "<group>"; };
+		7DFD43E8226817840093CEA5 /* Easy_189_旋转数组.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_189_旋转数组.c"; sourceTree = "<group>"; };
+		7DFF9066228004EE000BF680 /* Easy_1_两数之和.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_1_两数之和.c"; sourceTree = "<group>"; };
+		7DFF906A22801646000BF680 /* utlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utlist.h; sourceTree = "<group>"; };
+		7DFF906B22801646000BF680 /* utstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utstack.h; sourceTree = "<group>"; };
+		7DFF906C22801646000BF680 /* utarray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utarray.h; sourceTree = "<group>"; };
+		7DFF906D22801646000BF680 /* utringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utringbuffer.h; sourceTree = "<group>"; };
+		7DFF906E22801646000BF680 /* uthash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uthash.h; sourceTree = "<group>"; };
+		7DFF906F22801646000BF680 /* utstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utstring.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7D07EC4D2265BD90008D010D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D07EC472265BD90008D010D = {
+			isa = PBXGroup;
+			children = (
+				7D07EC522265BD90008D010D /* LeetCode_C */,
+				7D07EC512265BD90008D010D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7D07EC512265BD90008D010D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D07EC502265BD90008D010D /* LeetCode_C */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7D07EC522265BD90008D010D /* LeetCode_C */ = {
+			isa = PBXGroup;
+			children = (
+				7D07EC5A2265BDAA008D010D /* Easy */,
+				7DFF906822801184000BF680 /* Middle */,
+			);
+			path = LeetCode_C;
+			sourceTree = "<group>";
+		};
+		7D07EC5A2265BDAA008D010D /* Easy */ = {
+			isa = PBXGroup;
+			children = (
+				7DFF9070228016D6000BF680 /* hash */,
+				7D07EC532265BD90008D010D /* main.c */,
+				7D07EC5B2265BDAA008D010D /* Easy_121_股票.c */,
+				7D07EC5F2265C6EE008D010D /* Easy_122_股票2.c */,
+				7DFD43E8226817840093CEA5 /* Easy_189_旋转数组.c */,
+				7DFC58242269B774008B3A75 /* Easy_217_存在重复元素.c */,
+				7D048ADC226EE2CB0046354C /* Easy_136_只出现一次的数字.c */,
+				7D4D06052271D5AB0064488C /* Easy_349_两个数组的交集.c */,
+				7DF8ADA522759FDC00281130 /* Easy_350_两个数组的交集2.c */,
+				7DFC44EB227EB05000EC1D81 /* Easy_66_加一.c */,
+				7DFC44ED227EDA6700EC1D81 /* Easy_283_移动零.c */,
+				7DFF9066228004EE000BF680 /* Easy_1_两数之和.c */,
+			);
+			path = Easy;
+			sourceTree = "<group>";
+		};
+		7DFF906822801184000BF680 /* Middle */ = {
+			isa = PBXGroup;
+			children = (
+				7D4D06032271D2650064488C /* Middle_137_只出现一次的数字2.c */,
+				7DFC689022811AE2002DFE97 /* Middle_36_有效的数独.c */,
+				7DFC6894228271CA002DFE97 /* Middle_48_旋转图像.c */,
+			);
+			path = Middle;
+			sourceTree = "<group>";
+		};
+		7DFF9070228016D6000BF680 /* hash */ = {
+			isa = PBXGroup;
+			children = (
+				7DFF906A22801646000BF680 /* utlist.h */,
+				7DFF906B22801646000BF680 /* utstack.h */,
+				7DFF906C22801646000BF680 /* utarray.h */,
+				7DFF906D22801646000BF680 /* utringbuffer.h */,
+				7DFF906E22801646000BF680 /* uthash.h */,
+				7DFF906F22801646000BF680 /* utstring.h */,
+			);
+			path = hash;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7D07EC4F2265BD90008D010D /* LeetCode_C */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D07EC572265BD90008D010D /* Build configuration list for PBXNativeTarget "LeetCode_C" */;
+			buildPhases = (
+				7D07EC4C2265BD90008D010D /* Sources */,
+				7D07EC4D2265BD90008D010D /* Frameworks */,
+				7D07EC4E2265BD90008D010D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LeetCode_C;
+			productName = LeetCode_C;
+			productReference = 7D07EC502265BD90008D010D /* LeetCode_C */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7D07EC482265BD90008D010D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = qiuzijie;
+				TargetAttributes = {
+					7D07EC4F2265BD90008D010D = {
+						CreatedOnToolsVersion = 10.2;
+					};
+				};
+			};
+			buildConfigurationList = 7D07EC4B2265BD90008D010D /* Build configuration list for PBXProject "LeetCode_C" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7D07EC472265BD90008D010D;
+			productRefGroup = 7D07EC512265BD90008D010D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7D07EC4F2265BD90008D010D /* LeetCode_C */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7D07EC4C2265BD90008D010D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DFC44EC227EB05000EC1D81 /* Easy_66_加一.c in Sources */,
+				7DFC44EE227EDA6700EC1D81 /* Easy_283_移动零.c in Sources */,
+				7DFC6895228271CA002DFE97 /* Middle_48_旋转图像.c in Sources */,
+				7DFF9067228004EE000BF680 /* Easy_1_两数之和.c in Sources */,
+				7D07EC542265BD90008D010D /* main.c in Sources */,
+				7DFC689122811AE2002DFE97 /* Middle_36_有效的数独.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7D07EC552265BD90008D010D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7D07EC562265BD90008D010D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7D07EC582265BD90008D010D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7D07EC592265BD90008D010D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7D07EC4B2265BD90008D010D /* Build configuration list for PBXProject "LeetCode_C" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D07EC552265BD90008D010D /* Debug */,
+				7D07EC562265BD90008D010D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D07EC572265BD90008D010D /* Build configuration list for PBXNativeTarget "LeetCode_C" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D07EC582265BD90008D010D /* Debug */,
+				7D07EC592265BD90008D010D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7D07EC482265BD90008D010D /* Project object */;
+}
