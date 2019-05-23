@@ -36,6 +36,21 @@ func maxProfit1 (from prices : [Int]) -> Int {
     return profit;
 }
 
+// MARK: - 189
+func rotate(_ nums: inout [Int], _ k: Int) {
+    for _ in 0..<k {
+        let n = nums.popLast()
+        nums.insert(n!, at: 0)
+    }
+}
+
+func rotate1(_ nums: inout [Int], _ k: Int) {
+    if k % nums.count < 1{return}
+    var k = k % nums.count
+    nums.reverse()
+    nums[0..<k].reverse()
+    nums[k..<nums.count].reverse()
+}
 
 // MARK: - 217
 
@@ -259,4 +274,202 @@ func twoSum2(nums: [Int], target: Int) -> [Int] {
         }
     }
     return []
+}
+
+// MARK:- 344
+func reverseString(_ s: inout [Character]) {
+    s.reverse()
+}
+
+// MARK:- 7
+
+func reverse(_ x: Int) -> Int {
+    var str = String(x)
+    var temp: Int = 0
+    while str.count > 0 {
+        let c = str.popLast()
+        if c != "-" {
+            temp = temp*10 + Int(String(c!))!
+        } else {
+            temp = -temp;
+        }
+    }
+    if temp > Int32.max || temp < Int32.min {
+        return 0
+    }
+    return temp
+}
+
+// MARK: - 387 字符串中的第一个唯一字符
+
+// 超时
+func firstUniqChar(_ s: String) -> Int {
+    var str = s
+    while str.count > 0 {
+        let c = str.removeFirst()
+        if !str.contains(c) {
+            return s.firstIndex(of: c)!.utf16Offset(in: s)
+        } else {
+            while let i = str.firstIndex(of: c) {
+                str.remove(at: i)
+            }
+        }
+    }
+    return -1
+}
+
+func firstUniqChar2(_ s: String) -> Int {
+    var dic = [Character: Int]()
+    let chars = Array(s)
+    for c in chars {
+        dic[c] = (dic[c] ?? 0) + 1
+    }
+
+    for (index, value) in s.enumerated() {
+        if dic[value] == 1 {
+            return index
+        }
+    }
+    return -1
+}
+
+func firstUniqChar3(_ s: String) -> Int {
+    for (index, value) in s.enumerated() {
+        if s.firstIndex(of: value) == s.lastIndex(of: value) {
+            return index;
+        }
+    }
+    return -1
+}
+
+// MARK: - 242 有效的字母异位词
+func isAnagram(_ s: String, _ t: String) -> Bool {
+    if s.count != t.count {
+        return false
+    }
+    var sortedS = s.sorted()
+    var sortedT = t.sorted()
+    while sortedS.count > 0 {
+        if sortedS.removeFirst() != sortedT.removeFirst() {
+            return false
+        }
+    }
+    return true
+}
+
+func isAnagram1(_ s: String, _ t: String) -> Bool {
+    if s.count != t.count {
+        return false
+    }
+    var dic = [Character: Int]()
+    for c in s {
+        dic[c] = (dic[c] ?? 0)+1
+    }
+    for c in t {
+        dic[c] = (dic[c] ?? 0)-1
+        if dic[c] == -1 {
+            return false
+        }
+    }
+    for v in dic.values {
+        if v > 0 {
+            return false
+        }
+    }
+    return true
+}
+
+func isAnagram2(_ s: String, _ t: String) -> Bool {
+    let chars_S = s.unicodeScalars
+    var counter_S = Array(repeating: 0, count: 26)
+    let chars_T = t.unicodeScalars
+    var counter_T = Array(repeating: 0, count: 26)
+    
+    for char in chars_S {
+        let index = Int(char.value - 97)
+        counter_S[index] += 1
+    }
+    
+    for char in chars_T {
+        let index = Int(char.value - 97)
+        counter_T[index] += 1
+    }
+    
+    return counter_T == counter_S
+}
+
+// MARK: - 125 验证回文字符串
+
+func isPalindrome(_ s: String) -> Bool {
+    let str = String(s).lowercased()
+    var array = [Character]()
+    for c in str {
+        if c.isNumber || c.isCased {
+            array.append(c)
+        }
+    }
+    if array == array.reversed() {
+        return true
+    }
+    return false
+}
+
+// MARK: - 28 实现strStr()
+// 超时
+func strStr(_ haystack: String, _ needle: String) -> Int {
+    if needle.count == 0 {
+        return 0
+    }
+    if let range = haystack.range(of: needle) {
+        let nsRange = NSRange(range, in: haystack)
+        return nsRange.location
+//        return range.lowerBound.utf16Offset(in: haystack)
+//        return haystack.distance(from:haystack.startIndex, to:range.lowerBound)
+    }
+    return -1
+}
+
+func strStr1(_ haystack: String, _ needle: String) -> Int {
+    if needle.count == 0 {
+        return 0
+    }
+    for (i,_) in haystack.enumerated(){
+        if haystack.count - i < needle.count {
+            return -1
+        }
+        let range = haystack.index(haystack.startIndex, offsetBy: i)..<haystack.index(haystack.startIndex, offsetBy: i+needle.count)
+        let str = haystack[range]
+        if str == needle {
+            return i
+        }
+    }
+    return -1
+}
+
+// MARK: - 30 报数
+func countAndSay(_ n: Int) -> String {
+    var nums = [Int]()
+    nums.append(1)
+    for _ in 1...n {
+        var temp = 0;
+        var old = nums.first!
+        var tempNums = [Int]()
+        for j in 0..<nums.count {
+            let number = nums[j]
+            if number == old {
+                temp += 1
+            } else {
+                tempNums.append(number)
+                tempNums.append(temp)
+                old = number
+                temp = 1
+            }
+        }
+        nums = tempNums
+    }
+    var str = String()
+    for n in nums {
+        str += String(n)
+    }
+    return str
 }

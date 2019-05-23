@@ -11,6 +11,7 @@
 #include <stdlib.h>
 
 // 暴力 超时
+// O(n^2)
 bool containsDuplicate(int* nums, int numsSize) {
     for (int i = 0; i < numsSize; i++) {
         for (int j = 0; j < i; j++) {
@@ -27,6 +28,7 @@ int compare (const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
 
+// O(n)
 bool containsDuplicate2(int* nums, int numsSize) {
     if (numsSize < 2) {
         return false;

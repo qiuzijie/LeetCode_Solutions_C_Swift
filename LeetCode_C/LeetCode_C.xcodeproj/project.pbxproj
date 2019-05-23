@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D019059228A63B200D4DA2E /* Easy_242_有效的字母异位词.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D019058228A63B200D4DA2E /* Easy_242_有效的字母异位词.c */; };
+		7D019099228BAD7300D4DA2E /* Easy_125_验证回文串.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D019098228BAD7300D4DA2E /* Easy_125_验证回文串.c */; };
+		7D0312392285228C005F1EA2 /* Easy_344_反转字符串.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0312382285228C005F1EA2 /* Easy_344_反转字符串.c */; };
+		7D03123B2285506E005F1EA2 /* Easy_7_整数反转.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D03123A2285506E005F1EA2 /* Easy_7_整数反转.c */; };
 		7D07EC542265BD90008D010D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D07EC532265BD90008D010D /* main.c */; };
-		7DFC44EC227EB05000EC1D81 /* Easy_66_加一.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC44EB227EB05000EC1D81 /* Easy_66_加一.c */; };
+		7D9FAFBE22967CA100A4230E /* Easy_14_最长公共前缀.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D9FAFBD22967CA100A4230E /* Easy_14_最长公共前缀.c */; };
 		7DFC44EE227EDA6700EC1D81 /* Easy_283_移动零.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC44ED227EDA6700EC1D81 /* Easy_283_移动零.c */; };
 		7DFC689122811AE2002DFE97 /* Middle_36_有效的数独.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC689022811AE2002DFE97 /* Middle_36_有效的数独.c */; };
-		7DFC6895228271CA002DFE97 /* Middle_48_旋转图像.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC6894228271CA002DFE97 /* Middle_48_旋转图像.c */; };
+		7DFE23FE228D00AE0042028F /* Easy_8_字符串转换整数.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE23FD228D00AE0042028F /* Easy_8_字符串转换整数.c */; };
+		7DFE2400228D05920042028F /* Easy_28_实现strStr().c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE23FF228D05920042028F /* Easy_28_实现strStr().c */; };
 		7DFF9067228004EE000BF680 /* Easy_1_两数之和.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFF9066228004EE000BF680 /* Easy_1_两数之和.c */; };
+		7DFFE8AB228947AF00F6E31A /* Easy_387_字符串中的第一个唯一字符.c in Sources */ = {isa = PBXBuildFile; fileRef = 7DFFE8AA228947AF00F6E31A /* Easy_387_字符串中的第一个唯一字符.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +34,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7D019058228A63B200D4DA2E /* Easy_242_有效的字母异位词.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_242_有效的字母异位词.c"; sourceTree = "<group>"; };
+		7D019098228BAD7300D4DA2E /* Easy_125_验证回文串.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_125_验证回文串.c"; sourceTree = "<group>"; };
+		7D0312382285228C005F1EA2 /* Easy_344_反转字符串.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_344_反转字符串.c"; sourceTree = "<group>"; };
+		7D03123A2285506E005F1EA2 /* Easy_7_整数反转.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_7_整数反转.c"; sourceTree = "<group>"; };
 		7D048ADC226EE2CB0046354C /* Easy_136_只出现一次的数字.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_136_只出现一次的数字.c"; sourceTree = "<group>"; };
 		7D07EC502265BD90008D010D /* LeetCode_C */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LeetCode_C; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D07EC532265BD90008D010D /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
@@ -35,6 +45,7 @@
 		7D07EC5F2265C6EE008D010D /* Easy_122_股票2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_122_股票2.c"; sourceTree = "<group>"; };
 		7D4D06032271D2650064488C /* Middle_137_只出现一次的数字2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Middle_137_只出现一次的数字2.c"; sourceTree = "<group>"; };
 		7D4D06052271D5AB0064488C /* Easy_349_两个数组的交集.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_349_两个数组的交集.c"; sourceTree = "<group>"; };
+		7D9FAFBD22967CA100A4230E /* Easy_14_最长公共前缀.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_14_最长公共前缀.c"; sourceTree = "<group>"; };
 		7DF8ADA522759FDC00281130 /* Easy_350_两个数组的交集2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_350_两个数组的交集2.c"; sourceTree = "<group>"; };
 		7DFC44EB227EB05000EC1D81 /* Easy_66_加一.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_66_加一.c"; sourceTree = "<group>"; };
 		7DFC44ED227EDA6700EC1D81 /* Easy_283_移动零.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_283_移动零.c"; sourceTree = "<group>"; };
@@ -42,6 +53,8 @@
 		7DFC689022811AE2002DFE97 /* Middle_36_有效的数独.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Middle_36_有效的数独.c"; sourceTree = "<group>"; };
 		7DFC6894228271CA002DFE97 /* Middle_48_旋转图像.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Middle_48_旋转图像.c"; sourceTree = "<group>"; };
 		7DFD43E8226817840093CEA5 /* Easy_189_旋转数组.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_189_旋转数组.c"; sourceTree = "<group>"; };
+		7DFE23FD228D00AE0042028F /* Easy_8_字符串转换整数.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_8_字符串转换整数.c"; sourceTree = "<group>"; };
+		7DFE23FF228D05920042028F /* Easy_28_实现strStr().c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_28_实现strStr().c"; sourceTree = "<group>"; };
 		7DFF9066228004EE000BF680 /* Easy_1_两数之和.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_1_两数之和.c"; sourceTree = "<group>"; };
 		7DFF906A22801646000BF680 /* utlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utlist.h; sourceTree = "<group>"; };
 		7DFF906B22801646000BF680 /* utstack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utstack.h; sourceTree = "<group>"; };
@@ -49,6 +62,7 @@
 		7DFF906D22801646000BF680 /* utringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utringbuffer.h; sourceTree = "<group>"; };
 		7DFF906E22801646000BF680 /* uthash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uthash.h; sourceTree = "<group>"; };
 		7DFF906F22801646000BF680 /* utstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utstring.h; sourceTree = "<group>"; };
+		7DFFE8AA228947AF00F6E31A /* Easy_387_字符串中的第一个唯一字符.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_387_字符串中的第一个唯一字符.c"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +116,14 @@
 				7DFC44EB227EB05000EC1D81 /* Easy_66_加一.c */,
 				7DFC44ED227EDA6700EC1D81 /* Easy_283_移动零.c */,
 				7DFF9066228004EE000BF680 /* Easy_1_两数之和.c */,
+				7D0312382285228C005F1EA2 /* Easy_344_反转字符串.c */,
+				7D03123A2285506E005F1EA2 /* Easy_7_整数反转.c */,
+				7DFFE8AA228947AF00F6E31A /* Easy_387_字符串中的第一个唯一字符.c */,
+				7D019058228A63B200D4DA2E /* Easy_242_有效的字母异位词.c */,
+				7D019098228BAD7300D4DA2E /* Easy_125_验证回文串.c */,
+				7DFE23FD228D00AE0042028F /* Easy_8_字符串转换整数.c */,
+				7DFE23FF228D05920042028F /* Easy_28_实现strStr().c */,
+				7D9FAFBD22967CA100A4230E /* Easy_14_最长公共前缀.c */,
 			);
 			path = Easy;
 			sourceTree = "<group>";
@@ -185,11 +207,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DFC44EC227EB05000EC1D81 /* Easy_66_加一.c in Sources */,
+				7DFE2400228D05920042028F /* Easy_28_实现strStr().c in Sources */,
+				7D019099228BAD7300D4DA2E /* Easy_125_验证回文串.c in Sources */,
+				7DFFE8AB228947AF00F6E31A /* Easy_387_字符串中的第一个唯一字符.c in Sources */,
+				7D9FAFBE22967CA100A4230E /* Easy_14_最长公共前缀.c in Sources */,
+				7D019059228A63B200D4DA2E /* Easy_242_有效的字母异位词.c in Sources */,
 				7DFC44EE227EDA6700EC1D81 /* Easy_283_移动零.c in Sources */,
-				7DFC6895228271CA002DFE97 /* Middle_48_旋转图像.c in Sources */,
 				7DFF9067228004EE000BF680 /* Easy_1_两数之和.c in Sources */,
+				7D0312392285228C005F1EA2 /* Easy_344_反转字符串.c in Sources */,
+				7DFE23FE228D00AE0042028F /* Easy_8_字符串转换整数.c in Sources */,
 				7D07EC542265BD90008D010D /* main.c in Sources */,
+				7D03123B2285506E005F1EA2 /* Easy_7_整数反转.c in Sources */,
 				7DFC689122811AE2002DFE97 /* Middle_36_有效的数独.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

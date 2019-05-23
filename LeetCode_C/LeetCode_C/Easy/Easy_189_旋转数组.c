@@ -22,23 +22,20 @@ void rotate1(int* nums, int numsSize, int k) {
 }
 
 // [1,2,3,4,5,6,7] 3 7
-// [6,7,3,4,5,1,2]
-// [6,7,1,2,5,3,4]
-// [6,7,1,2,3,4,5]
+// [6,7,3,4,5,1,2] 处理 [3,4,5,1,2] 应该转动 3%5 = 3次
+// [1,2,5,3,4] 处理 [5,3,4]
+// [3,4,5] 处理[5] 当 k%n=0 时结束
 
-// 循环交换 ：把最后k%n项挪到正确的位置上，和 0~k-1 上的数据进行交换。此时最后k项应该放在 k ~ 2k-1 上
-// 每次将k个数据放在正确的位置上 然后处理 x*k ~ n 的数据
-// 第一次交换完毕后，前 k 位数字位置正确，后 n-k 位数字中最后 k 位数字顺序错误，继续交换
-// 待写
-
+// 循环交换
+// 每次将最后 k 项放到 0~k-1 位置上，即前k项正确啦，然后对后面的 n-k 项做同样的操作
 void rotate2(int* nums, int numsSize, int k) {
     int n = numsSize;
     k %= n;
-    for (int start = 0; start < numsSize && k > 0; start += k, n -= k, k %= n) {
-        for (int i = start; i < k+start; i++) {
-            int temp = nums[i];
-            nums[i] = nums[n+i-k];
-            nums[n+i-k] = temp;
+    for (int start = 0; start < numsSize && k>0; start+=k,n-=k,k%=n) {
+        for (int i = 0; i < k; i++) {
+            int temp = nums[numsSize-k+i];
+            nums[numsSize-k+i] = nums[start+i];
+            nums[start+i] = temp;
         }
     }
 }

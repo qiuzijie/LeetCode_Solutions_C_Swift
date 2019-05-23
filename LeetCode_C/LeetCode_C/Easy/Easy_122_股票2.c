@@ -8,9 +8,6 @@
 
 #include <stdio.h>
 
-//绘曲线图有利于看出最大利润等于啥
-
-
 int calculateMax(int *prices, int pricesSize, int start) {
     if (start >= pricesSize) {
         return 0;
@@ -40,6 +37,11 @@ int calculateMax(int *prices, int pricesSize, int start) {
 int maxProfit1(int* prices, int pricesSize) {
     return calculateMax(prices, pricesSize, 0);
 }
+
+
+/**
+ 绘曲线图有利于看出最大利润等于啥
+ **/
 
 // 峰谷法 找到峰谷对应的峰顶
 // 复杂度 O(n) O(1)

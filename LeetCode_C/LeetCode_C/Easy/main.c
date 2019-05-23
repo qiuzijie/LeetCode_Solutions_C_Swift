@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 int calculateMax(int *prices, int pricesSize, int start) {
     if (start >= pricesSize) {
@@ -46,9 +47,37 @@ int compare (const void *a, const void *b) {
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    int nums[] = {397,6621,4997,7506,8918,1662,9187,3278,3890,514,18,9305,93,5508,3031,2692,6019,1134,1691,4949,5071,799,8953,
-        397,6621,4997,7506,8918,1662,9187,3278,3890,514,18,9305,93,5508,3031,2692,6019,1134,1691,4949,5071,799,8953
-    };
-    qsort(nums, 46, sizeof(int), compare);
+    
+    char *haystack = "mississippi";
+    char *needle = "issip";
+    int length = strlen(needle);
+    int *maxMatchs = (int *)malloc(sizeof(int)*length);
+    *maxMatchs = 0;
+    int maxLength = 0;
+    for (int i = 1; i < length; i++) {
+        if (maxLength > 0 && needle[i] != needle[maxLength]) {
+            maxLength = maxMatchs[maxLength - 1];
+        }
+        if (needle[i] == needle[maxLength]) {
+            maxLength++;
+        }
+        maxMatchs[i] = maxLength;
+    }
+    
+    int j = 0;
+    for (int i = 0; i < strlen(haystack); i++) {
+        while (j > 0 && haystack[i] != needle[j]) {
+            j = maxMatchs[j - 1];
+        }
+        if (haystack[i] == needle[j]) {
+            j++;
+        }
+        if (j == strlen(needle)) {
+            return i-j+1;
+        }
+    }
+    
+    
+    
     return 0;
 }
