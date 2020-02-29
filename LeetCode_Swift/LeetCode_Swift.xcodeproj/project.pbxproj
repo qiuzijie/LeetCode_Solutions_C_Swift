@@ -10,6 +10,8 @@
 		7D07EC412265BD80008D010D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D07EC402265BD80008D010D /* main.swift */; };
 		7D07EC5E2265BE29008D010D /* Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D07EC5D2265BE29008D010D /* Easy.swift */; };
 		7D88D17C242B54C500942431 /* Hard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88D17B242B54C500942431 /* Hard.swift */; };
+		7D469822241339EB007CCF86 /* MyStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D469821241339EB007CCF86 /* MyStack.swift */; };
+		7D469824241339F7007CCF86 /* MyQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D469823241339F7007CCF86 /* MyQueue.swift */; };
 		7DFC689322815EBD002DFE97 /* Middle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC689222815EBD002DFE97 /* Middle.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		7D07EC402265BD80008D010D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7D07EC5D2265BE29008D010D /* Easy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Easy.swift; sourceTree = "<group>"; };
 		7D88D17B242B54C500942431 /* Hard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hard.swift; sourceTree = "<group>"; };
+		7D469821241339EB007CCF86 /* MyStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStack.swift; sourceTree = "<group>"; };
+		7D469823241339F7007CCF86 /* MyQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQueue.swift; sourceTree = "<group>"; };
 		7DFC689222815EBD002DFE97 /* Middle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Middle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				7D07EC402265BD80008D010D /* main.swift */,
+				7D469821241339EB007CCF86 /* MyStack.swift */,
+				7D469823241339F7007CCF86 /* MyQueue.swift */,
 				7D07EC5D2265BE29008D010D /* Easy.swift */,
 				7DFC689222815EBD002DFE97 /* Middle.swift */,
 				7D88D17B242B54C500942431 /* Hard.swift */,
@@ -129,8 +135,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D88D17C242B54C500942431 /* Hard.swift in Sources */,
+				7D469822241339EB007CCF86 /* MyStack.swift in Sources */,
 				7D07EC412265BD80008D010D /* main.swift in Sources */,
 				7D07EC5E2265BE29008D010D /* Easy.swift in Sources */,
+				7D469824241339F7007CCF86 /* MyQueue.swift in Sources */,
 				7DFC689322815EBD002DFE97 /* Middle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

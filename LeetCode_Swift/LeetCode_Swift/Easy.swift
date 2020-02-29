@@ -829,3 +829,112 @@ func hasGroupsSizeX(_ deck: [Int]) -> Bool {
     return true
 }
 
+// MARK: - 994 腐烂的橘子 ***
+
+/// 广度优先遍历 先将烂橘子入队 再遍历上下左右的格子找新鲜橘子
+/// dis 辅助字典用来记录每个格子的腐烂所需时间。
+func orangesRotting( _ grid: [[Int]]) -> Int {
+    var newGrid = grid
+    var queue = intQueue()
+    let C = newGrid[0].count
+    let R = newGrid.count
+    var dis = [Int:Int]()
+    var fresh = 0
+    
+    for i in 0..<R {
+        for j in 0..<newGrid[i].count {
+            if newGrid[i][j] == 2 {
+                /// i*C + j 记录行列数 很好地办法
+                queue.enQueue(i*C + j)
+                dis[i*C+j] = 0
+            } else if newGrid[i][j] == 1 {
+                fresh += 1
+            }
+        }
+    }
+    var curDis = 0
+
+    while !queue.isEmpty {
+        let value = queue.deQueue()!
+        let row = value/C
+        let col = value%C
+        curDis = dis[row*C+col] ?? 0
+        for i in 0..<4 {
+            var c = col
+            var r = row
+            if i == 0 {
+                r -= 1
+            } else if i == 1 {
+                r += 1
+            } else if i == 2 {
+                c -= 1
+            } else if i == 3 {
+                c += 1
+            }
+            if r >= 0 && r < R && c >= 0 && c < C && newGrid[r][c] == 1{
+                dis[r*C+c] = curDis + 1
+                newGrid[r][c] = 2
+                queue.enQueue(r*C+c)
+                fresh -= 1
+            }
+        }
+    }
+    
+    if fresh == 0 {
+        return curDis
+    }
+    return -1
+}
+
+// MARK: 575 分糖果1
+func distributeCandies(_ candies: [Int]) -> Int {
+    let s = Set(candies)
+    return min(s.count, candies.count/2)
+}
+// MARK: 1103 分糖果2
+
+func distributeCandies(_ candies: Int, _ num_people: Int) -> [Int] {
+    var result = [Int]()
+    var total = candies
+    var curNum = 1
+    var curPeo = 0
+    while total > 0 || curPeo < num_people {
+        if total <= 0 {
+            result.append(0)
+        } else if curPeo < num_people {
+            result.append(curNum)
+        } else {
+            result[curPeo%num_people] += curNum
+        }
+        total -= curNum
+        curNum = min(curNum+1, total)
+        curPeo = curPeo + 1
+    }
+    return result
+}
+
+// MARK: 面试题57 和为s的连续正数序列
+/// 暴力 o(n^2)
+func findContinuousSequence(_ target: Int) -> [[Int]] {
+    var result = [[Int]]()
+
+    var tempList = [Int]()
+    var tempSum = 0
+    for i in 1..<(target+1)/2 {
+        tempList.removeAll()
+        tempSum = 0
+        for j in i..<(target+1)/2 + 1 {
+            tempSum += j
+            if tempSum < target {
+                tempList.append(j)
+            } else if tempSum == target {
+                tempList.append(j)
+                result.append(tempList)
+            } else {
+                break
+            }
+        }
+    }
+    
+    return result
+}

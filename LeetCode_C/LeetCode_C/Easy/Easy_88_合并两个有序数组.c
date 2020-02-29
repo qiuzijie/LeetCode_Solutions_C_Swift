@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// 重新申请一个空间。。。
 void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
     int i = 0 , j = 0, k = 0;
     int* nums = (int *)malloc(sizeof(int)*(nums1Size+nums2Size));
@@ -31,6 +32,7 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
     }
 }
 
+// 蠢办法，插入法，每次还要挪位置
 void merge1(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
     int j = 0, k = 0;
     while (j < n && k < m) {
@@ -50,4 +52,29 @@ void merge1(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
         nums1[j+k] = nums2[j];
         j++;
     }
+}
+
+// 从尾部插入
+void merge2(int* A, int ASize, int m, int* B, int BSize, int n){
+    int i = m-1, j = n-1;
+    while (i > -1 || j > -1) {
+        if (i == -1) {
+            A[--ASize] = B[j--];
+        } else if (j == -1) {
+            A[--ASize] = A[i--];
+        } else {
+            A[--ASize] = A[i] > B[j] ? A[i--]:B[j--];
+        }
+    }
+}
+
+
+// 先全部加入到数组1，然后再排序。。
+
+char ** fizzBuzz(int n, int* returnSize){
+    char **strArray = malloc(sizeof(char *)*n);
+    for (int i = 1; i <= n; i++) {
+        strArray[i-1] = i;
+    }
+    return strArray;
 }
