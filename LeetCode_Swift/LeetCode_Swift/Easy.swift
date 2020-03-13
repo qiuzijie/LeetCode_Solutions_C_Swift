@@ -473,3 +473,263 @@ func countAndSay(_ n: Int) -> String {
     }
     return str
 }
+
+// MARK: - 13 罗马数字转整数
+func romanToInt(_ s: String) -> Int {
+    let dic = ["I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000]
+    var number = 0
+    var pre = 0
+    for c in s {
+        let value = dic[String(c)]!
+        if value > pre {
+            number -= pre*2
+        }
+        number += value
+        pre = value
+    }
+    return number
+}
+
+// MARK: - 191 位1的个数
+// 依次把n的最后一个1反转为0，直到全部为0
+// n的最后一个1的位置，n-1为0 按位或就行了
+func hammingWeight(_ n: Int) -> Int {
+    var count = 0
+    var nn = n
+    while nn > 0 {
+        count += 1
+        nn &= nn-1
+    }
+    return count
+}
+
+// 从 1 开始左移，按位与依次查看每一个位置是否为1
+func hammingWeight2(_ n: Int) -> Int {
+    var count = 0
+    var flag = 1
+    
+    while flag <= n {
+        if n&flag != 0 {
+            count+=1
+        }
+        flag = flag << 1
+    }
+    return count
+}
+
+// MARK: -1013 将数组分成和相等的三个部分
+
+/// 分成三份 相加
+func canThreePartsEqualSum(_ A: [Int]) -> Bool {
+    var sum = 0;
+    A.forEach { (number) in
+        sum += number;
+    }
+
+    if sum%3 != 0 {
+        return false
+    }
+    let averge = sum/3
+    var tempSum = 0;
+    var flag = 0;
+    for num in A {
+        tempSum += num;
+        if tempSum == averge {
+            flag += 1
+            tempSum = 0
+        }
+    }
+    // [-1,1,-1,1,-1,1,-1,1] flag会大于3
+    return (flag >= 3) ? true : false
+}
+
+// 左右指针法
+// 先判断能否三等分 然后左右求和 当左右和相等时，剩余和必相等
+func canThreePartsEqualSum2(_ A: [Int]) -> Bool {
+    var sum = 0;
+    A.forEach { (number) in
+        sum += number;
+    }
+    if sum%3 != 0 {
+        return false
+    }
+    var left = 0
+    var right = A.count-1
+    var sumL = A[left]
+    var sumR = A[right]
+    let averge = sum/3
+    
+    while left < right-1{
+        if sumL == sumR && sumL == averge {
+            return true
+        }
+        if sumL != averge{
+            left+=1
+            sumL += A[left]
+        }
+        if sumR != averge{
+            right-=1
+            sumR += A[right]
+        }
+    }
+    return false
+}
+
+// MARK: -1071 字符串的最大公因子
+func helper(_ checkStr: String, _ subStr: String) -> Bool {
+    let length = subStr.count
+    let rCount = checkStr.count / length
+    for i in 0..<rCount {
+        let begin = checkStr.index(checkStr.startIndex, offsetBy: i*length)
+        let end = checkStr.index(begin, offsetBy: length-1)
+        let temp = checkStr[begin...end]
+        
+        if String(temp) != subStr {
+            return false
+        }
+    }
+    return true
+}
+
+// 如果存在一个符合要求的字符串 X，那么也一定存在一个符合要求的字符串 X'，它的长度为 str1 和 str2 长度的最大公约数
+func gcdOfStrings(_ str1: String, _ str2: String) -> String {
+    var checkStr = str1.count > str2.count ? str2:str1
+    
+    while checkStr.count > 0 {
+        // 最大的公约数不满足，那么后面的公约数都不会满足
+        if str1.count % checkStr.count == 0 && str2.count % checkStr.count == 0{
+            if helper(str1, checkStr) && helper(str2, checkStr) {
+                return checkStr
+            }
+        } else {
+           return ""
+        }
+        checkStr.removeLast()
+    }
+    return ""
+}
+
+// 数学办法 1+2 = 2+1 这样两个字符串一定有公约字符串 然后求最大公约数 求出最大公约字符串
+func gcdOfStrings2(_ str1: String, _ str2: String) -> String {
+    if str1+str2 != str2+str1 {
+        return ""
+    }
+    var a = str1.count
+    var b = str2.count
+    var gcd = 0
+    // 辗转相除法
+    while a > 0 && b > 0 {
+        if a%b == 0 {
+            gcd = b
+            break
+        } else {
+            let temp = b
+            b = a%b
+            a = temp
+        }
+    }
+    
+    let end = str1.index(str1.startIndex, offsetBy: gcd-1)
+    let begin = str1.startIndex
+    return String(str1[begin...end])
+}
+
+// MARK: - 118 杨辉三角形
+func generate(_ numRows: Int) -> [[Int]] {
+    var array = [[Int]]()
+    for i in 0..<numRows {
+        array.append([Int]())
+        for j in 0...i {
+            let lastRow = i-1
+            let lastLeft = j-1
+            let lastRight = j
+            var value = 1
+            if lastRow >= 0 && lastLeft >= 0 {
+                value = array[lastRow][lastLeft]
+                if lastRight < i {
+                    value += array[lastRow][lastRight]
+                }
+            }
+            array[i].append(value)
+        }
+    }
+    return array
+}
+
+// MARK: - 190 颠倒二进制位
+// 每次取n最后一位，再左移到最前面
+func reverseBits(_ n: Int) -> Int {
+    var result = 0
+    var vn = n
+    for i in 0...31 {
+        result += ((vn & 1) << (31-i))
+        vn >>= 1
+    }
+    return result
+}
+
+// MARK: -20 有效的括号
+func isValid(_ s: String) -> Bool {
+    var stack = [Character]()
+    
+    for c in s {
+        if c == "(" ||
+            c == "{" ||
+            c == "[" {
+            stack.append(c)
+        }
+        if c == ")" ||
+            c == "}" ||
+            c == "]" {
+            if stack.isEmpty {return false}
+            let left = stack.popLast()
+            if c == ")" && left != "(" {
+                return false
+            } else if c == "}" && left != "{" {
+                return false
+            } else if c == "]" && left != "[" {
+                return false
+            }
+        }
+    }
+    return stack.isEmpty
+}
+
+// MARK: -268 缺失的数字
+// O(n) O(n)
+func missingNumber(_ nums: [Int]) -> Int {
+    var dic = [Int:Int]()
+    for n in nums {
+        dic[n] = 1
+    }
+    for i in 0...nums.count {
+        if dic[i] == nil {
+            return i
+        }
+    }
+    return 0
+}
+
+// 异或
+// O(n) O(1)
+func missingNumber2(_ nums: [Int]) -> Int {
+
+    var missing = nums.count
+    for i in 0..<nums.count {
+        missing ^= i
+        missing ^= nums[i]
+    }
+    return missing
+}
+
+// 数学
+// O(n) O(1)
+func missingNumber3(_ nums: [Int]) -> Int {
+
+    var sum = nums.count
+    for i in 0..<nums.count {
+        sum += i
+        sum -= nums[i]
+    }
+    return sum
+}

@@ -19,7 +19,11 @@
 		7D0749C823155180007C0392 /* Easy_101_对称二叉树.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0749C723155180007C0392 /* Easy_101_对称二叉树.c */; };
 		7D07EC542265BD90008D010D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D07EC532265BD90008D010D /* main.c */; };
 		7D0E09AB22A7B555006FB7EC /* Easy_234_回文链表.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D0E09AA22A7B555006FB7EC /* Easy_234_回文链表.c */; };
+		7D1B2A4B2417251F004EC8F8 /* Easy_543_二叉树的直径.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1B2A4A2417251F004EC8F8 /* Easy_543_二叉树的直径.c */; };
 		7D1BDA792404AC600012F231 /* Easy_88_合并两个有序数组.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1BDA782404AC600012F231 /* Easy_88_合并两个有序数组.c */; };
+		7D1D3D6B240F34C800638206 /* Easy_204_计数质数.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1D3D6A240F34C800638206 /* Easy_204_计数质数.c */; };
+		7D1D3D6D240F383300638206 /* Easy_326_3的幂.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1D3D6C240F383300638206 /* Easy_326_3的幂.c */; };
+		7D1D406C240DE2A500F2FD97 /* Easy_155_最小栈.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1D406B240DE2A500F2FD97 /* Easy_155_最小栈.c */; };
 		7D1DBADF24074FC700BF848F /* Easy_70_爬楼梯.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DBADE24074FC700BF848F /* Easy_70_爬楼梯.c */; };
 		7D1DBAE12407989300BF848F /* Easy_53_最大子序和.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DBAE02407989300BF848F /* Easy_53_最大子序和.c */; };
 		7D20504E2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D20504D2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c */; };
@@ -65,7 +69,11 @@
 		7D07EC5B2265BDAA008D010D /* Easy_121_股票.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_121_股票.c"; sourceTree = "<group>"; };
 		7D07EC5F2265C6EE008D010D /* Easy_122_股票2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_122_股票2.c"; sourceTree = "<group>"; };
 		7D0E09AA22A7B555006FB7EC /* Easy_234_回文链表.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_234_回文链表.c"; sourceTree = "<group>"; };
+		7D1B2A4A2417251F004EC8F8 /* Easy_543_二叉树的直径.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_543_二叉树的直径.c"; sourceTree = "<group>"; };
 		7D1BDA782404AC600012F231 /* Easy_88_合并两个有序数组.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_88_合并两个有序数组.c"; sourceTree = "<group>"; };
+		7D1D3D6A240F34C800638206 /* Easy_204_计数质数.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_204_计数质数.c"; sourceTree = "<group>"; };
+		7D1D3D6C240F383300638206 /* Easy_326_3的幂.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_326_3的幂.c"; sourceTree = "<group>"; };
+		7D1D406B240DE2A500F2FD97 /* Easy_155_最小栈.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_155_最小栈.c"; sourceTree = "<group>"; };
 		7D1DBADE24074FC700BF848F /* Easy_70_爬楼梯.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_70_爬楼梯.c"; sourceTree = "<group>"; };
 		7D1DBAE02407989300BF848F /* Easy_53_最大子序和.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_53_最大子序和.c"; sourceTree = "<group>"; };
 		7D20504D2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_108_将有序数组转换为二叉搜索树.c"; sourceTree = "<group>"; };
@@ -165,6 +173,10 @@
 				7D1BDA782404AC600012F231 /* Easy_88_合并两个有序数组.c */,
 				7D1DBADE24074FC700BF848F /* Easy_70_爬楼梯.c */,
 				7D1DBAE02407989300BF848F /* Easy_53_最大子序和.c */,
+				7D1D406B240DE2A500F2FD97 /* Easy_155_最小栈.c */,
+				7D1D3D6A240F34C800638206 /* Easy_204_计数质数.c */,
+				7D1D3D6C240F383300638206 /* Easy_326_3的幂.c */,
+				7D1B2A4A2417251F004EC8F8 /* Easy_543_二叉树的直径.c */,
 			);
 			path = Easy;
 			sourceTree = "<group>";
@@ -265,14 +277,18 @@
 				7D048E8F229BB8EA0088DDFE /* Easy_19_删除链表的倒数第N个节点.c in Sources */,
 				7D1BDA792404AC600012F231 /* Easy_88_合并两个有序数组.c in Sources */,
 				7D0312392285228C005F1EA2 /* Easy_344_反转字符串.c in Sources */,
+				7D1B2A4B2417251F004EC8F8 /* Easy_543_二叉树的直径.c in Sources */,
 				7D20504E2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c in Sources */,
 				7DFE23FE228D00AE0042028F /* Easy_8_字符串转换整数.c in Sources */,
 				7D1DBADF24074FC700BF848F /* Easy_70_爬楼梯.c in Sources */,
 				7D00AAA5230E8D320041151E /* Middle_98_验证二叉搜索树.c in Sources */,
 				7D048E93229D2C360088DDFE /* Middle_92_反转链表2.c in Sources */,
+				7D1D3D6D240F383300638206 /* Easy_326_3的幂.c in Sources */,
 				7D0E09AB22A7B555006FB7EC /* Easy_234_回文链表.c in Sources */,
 				7D07EC542265BD90008D010D /* main.c in Sources */,
+				7D1D406C240DE2A500F2FD97 /* Easy_155_最小栈.c in Sources */,
 				7D4B17E822B735F800AE2DDD /* Easy_104_二叉树的最大深度.c in Sources */,
+				7D1D3D6B240F34C800638206 /* Easy_204_计数质数.c in Sources */,
 				7D43200722A1045700253FAC /* Easy_21_合并两个有序链表.c in Sources */,
 				7D03123B2285506E005F1EA2 /* Easy_7_整数反转.c in Sources */,
 				7D048E91229CC6A60088DDFE /* Easy_206_反转链表.c in Sources */,
