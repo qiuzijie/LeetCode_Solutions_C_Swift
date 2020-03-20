@@ -733,3 +733,21 @@ func missingNumber3(_ nums: [Int]) -> Int {
     }
     return sum
 }
+
+// MARK: - 836 矩形重叠
+// 投影到X/Y轴，若有一条边不相交则不重叠
+// 矩形 rec1 和 rec2 的水平边投影到x轴上的线段分别为 (rec1[0], rec1[2]) 和 (rec2[0], rec2[2])。根据数学知识我们可以知道，当 min(rec1[2], rec2[2]) > max(rec1[0], rec2[0]) 时，这两条线段有交集。
+func isRectangleOverlap(_ rec1: [Int], _ rec2: [Int]) -> Bool {
+    return max(rec1[0], rec2[0]) < min(rec1[2], rec2[2]) && max(rec1[1], rec2[1]) < min(rec1[3], rec2[3])
+}
+
+// 四种情况两个矩形会不重叠 A位于B的左、右、上、下方
+func isRectangleOverlap1(_ rec1: [Int], _ rec2: [Int]) -> Bool {
+    if rec1[2] <= rec2[0] || rec1[0] >= rec2[2] {
+        return false
+    }
+    if rec1[3] <= rec2[1] || rec1[1] >= rec2[3] {
+        return false
+    }
+    return true
+}
