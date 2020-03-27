@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D07EC412265BD80008D010D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D07EC402265BD80008D010D /* main.swift */; };
 		7D07EC5E2265BE29008D010D /* Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D07EC5D2265BE29008D010D /* Easy.swift */; };
+		7D88D17C242B54C500942431 /* Hard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88D17B242B54C500942431 /* Hard.swift */; };
 		7DFC689322815EBD002DFE97 /* Middle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC689222815EBD002DFE97 /* Middle.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		7D07EC3D2265BD80008D010D /* LeetCode_Swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LeetCode_Swift; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D07EC402265BD80008D010D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7D07EC5D2265BE29008D010D /* Easy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Easy.swift; sourceTree = "<group>"; };
+		7D88D17B242B54C500942431 /* Hard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hard.swift; sourceTree = "<group>"; };
 		7DFC689222815EBD002DFE97 /* Middle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Middle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +66,7 @@
 				7D07EC402265BD80008D010D /* main.swift */,
 				7D07EC5D2265BE29008D010D /* Easy.swift */,
 				7DFC689222815EBD002DFE97 /* Middle.swift */,
+				7D88D17B242B54C500942431 /* Hard.swift */,
 			);
 			path = LeetCode_Swift;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D88D17C242B54C500942431 /* Hard.swift in Sources */,
 				7D07EC412265BD80008D010D /* main.swift in Sources */,
 				7D07EC5E2265BE29008D010D /* Easy.swift in Sources */,
 				7DFC689322815EBD002DFE97 /* Middle.swift in Sources */,

@@ -219,3 +219,102 @@ func permute(_ nums: [Int]) -> [[Int]] {
     appendNums(nums, curNums)
     return results
 }
+
+// MARK: - 15 三数之和 ***
+
+// O(NlogN)+O(n)∗O(n)，O(n^2)
+func threeSum(_ nums: [Int]) -> [[Int]] {
+    // 数量小于3退出
+    // 排序后首位大于0退出
+    if nums.count < 3 {
+        return [[Int]]()
+    }
+    var result = [[Int]]()
+    // O(nlogn)
+    let sorted = nums.sorted()
+    if sorted[0] > 0 {
+        return [[Int]]()
+    }
+    var left = 0
+    var right = 0
+    
+    // O(n^2)
+    for i in 0..<sorted.count-2 {
+        // 只要最低位大于0，就说明不得行了
+        if sorted[i] > 0 {
+            return result
+        }
+        // 避免重复
+        if i > 0 && sorted[i] == sorted[i-1] {
+            continue
+        }
+        left = i+1
+        right = sorted.count-1
+        while left < right {
+            let sum = -sorted[i]
+            let cur = sorted[left] + sorted[right]
+            if cur > sum {
+                right -= 1
+            } else if cur < sum {
+                left += 1
+            } else {
+                // 找到了
+                result.append([sorted[i],sorted[left],sorted[right]])
+                // 避免重复
+                while sorted[right] == sorted[right-1] && right > left {
+                    right -= 1
+                }
+                while sorted[left] == sorted[left+1] && right > left {
+                    left += 1
+                }
+                right -= 1
+                left += 1
+            }
+        }
+    }
+
+    return result
+}
+
+// 在超时边缘徘徊
+// 时间O(n^2)
+// 空间O(n+n)
+func threeSum1(_ nums: [Int]) -> [[Int]] {
+    if nums.count < 3 {
+        return [[Int]]()
+    }
+    // 三数相加为0 x y z
+    var result = [[Int]]()
+    var mapX = [Int: Int]()
+    
+    for i in 0..<nums.count-2 {
+        // 去重
+        if mapX[nums[i]] != nil {
+            continue
+        } else {
+            mapX[nums[i]] = 1
+        }
+        let sum = -nums[i]
+        var mapYZ = [Int: Int]()
+        for j in i+1..<nums.count {
+            let y = nums[j]
+            let z = sum - y
+            // 判断之前x有没有加入过
+            if mapX[y] == 2 || mapX[z] == 2 {
+                continue
+            }
+            // 找到了
+            if mapYZ[z] == 1 {
+                result.append([nums[i],y,z])
+                mapYZ[y] = 2
+                mapYZ[z] = 2
+            }
+            // 把自己加入map中
+            if mapYZ[y] == nil {
+                mapYZ[y] = 1
+            }
+        }
+        mapX[nums[i]] = 2
+    }
+    return result
+}

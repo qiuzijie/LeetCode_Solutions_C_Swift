@@ -751,3 +751,81 @@ func isRectangleOverlap1(_ rec1: [Int], _ rec2: [Int]) -> Bool {
     }
     return true
 }
+
+// MARK: - 17.16 按摩师 类似于打家劫舍
+
+// dp 保留的是位于每个位置时的最大值
+// O(n) 空间O(n)
+func massage(_ nums: [Int]) -> Int {
+    if nums.count < 1 {
+        return 0
+    }
+    var dp = nums
+    
+    for i in 1..<nums.count {
+        if i > 1 {
+            dp[i] = max(dp[i]+dp[i-2], dp[i-1])
+        } else {
+            dp[i] = max(dp[0], dp[1])
+        }
+    }
+    return dp[nums.count-1]
+}
+
+// 这个dp保留了以每个位置结束的最大值,就是把每种可能都算出来了
+// O(n^2) 空间O(n)
+func massage1(_ nums: [Int]) -> Int {
+    var dp = [Int](repeating: 0, count: nums.count)
+    var curmax = 0
+    for (i,n) in nums.enumerated() {
+        var cur = 0
+        if i > 1 {
+            for j in 0..<i-1 {
+                cur = max(cur, dp[j])
+            }
+        }
+        dp[i] = n+cur
+        curmax = max(curmax, dp[i])
+    }
+    return curmax
+}
+
+// MARK: - 卡牌分组 914 *
+
+func gcd(_ a: Int, _ b: Int) -> Int {
+    if a == 0 {
+        return b
+    }
+    return gcd(b%a, a)
+}
+// 用 map 记录分组数比排序之后遍历分要好
+// O(n) 空间：O(n)
+func hasGroupsSizeX(_ deck: [Int]) -> Bool {
+    // 至少要2个
+    if deck.count < 2 {
+        return false
+    }
+    
+    var groupMap = [Int: Int]()
+
+    // 分组
+    for count in deck {
+        groupMap[count] = (groupMap[count] ?? 0) + 1
+    }
+
+    // 辗转相除，找最大公约数
+    // 1 <= deck.length <= 10000
+    var g = -1
+    for count in groupMap.values {
+        if g == -1 {
+            g = count
+        } else {
+            g = gcd(g, count)
+        }
+    }
+    if g < 2 {
+        return false
+    }
+    return true
+}
+
