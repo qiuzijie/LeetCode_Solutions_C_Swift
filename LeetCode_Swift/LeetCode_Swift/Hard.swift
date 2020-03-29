@@ -7,6 +7,63 @@
 //
 
 import Foundation
+
+// MARK: - N皇后 回溯 ***
+var results = [Int](repeating: 0, count: 8)
+var strList = [[String]]()
+
+func appendStrList(total: Int) {
+    
+    var list = [String]()
+    for column in results {
+        var str = ""
+        for j in 0..<total {
+            if j == column {
+                str += "Q"
+            } else {
+                str += "."
+            }
+        }
+        list.append(str)
+    }
+    strList.append(list)
+}
+
+func eightQueen( row: Int, total: Int) {
+    if row == total {
+        appendStrList(total: total)
+        return
+    }
+    for i in 0..<total {
+        if isEligible(column: i, row: row) {
+            results[row] = i
+            eightQueen(row: row+1, total:total)
+        }
+    }
+}
+
+func isEligible(column: Int, row: Int) -> Bool{
+
+    for i in 0..<row {
+        if results[i] == column {
+            return false
+        }
+        if row - i == column - results[i] {
+            return false
+        }
+        if row - i == results[i] - column {
+            return false
+        }
+    }
+    return true
+}
+
+func solveNQueens(_ n: Int) -> [[String]] {
+    results = [Int](repeating: 0, count: n)
+    eightQueen(row: 0, total: n)
+    return strList
+}
+
 // MARK: - 跳跃游戏2
 // 每次确定一次最大的跳跃范围
 // 用end来控制跳跃范围，小于end的都属于一次跳跃
