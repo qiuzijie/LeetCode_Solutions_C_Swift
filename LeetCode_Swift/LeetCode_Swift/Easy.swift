@@ -913,7 +913,7 @@ func distributeCandies(_ candies: Int, _ num_people: Int) -> [Int] {
     return result
 }
 
-// MARK: 面试题57 和为s的连续正数序列
+// MARK: - 面试题57 和为s的连续正数序列
 /// 暴力 o(n^2)
 func findContinuousSequence(_ target: Int) -> [[Int]] {
     var result = [[Int]]()
@@ -937,4 +937,101 @@ func findContinuousSequence(_ target: Int) -> [[Int]] {
     }
     
     return result
+}
+
+// MARK: - 876 链表的中间结点
+
+// 快慢指针
+func middleNode(_ head: ListNode?) -> ListNode? {
+    var slow = head
+    var fast = head
+    while fast != nil && fast?.next != nil {
+        fast = fast?.next?.next
+        slow = slow?.next
+    }
+    return slow
+}
+
+func middleNode1(_ head: ListNode?) -> ListNode? {
+    // 链表长度 确定中点
+    var node = head
+    var length = 0
+    while node != nil {
+        length += 1
+        node = node?.next
+    }
+    // 前一半出队
+    node = head
+    for _ in 0..<length/2 {
+        node = node?.next
+    }
+    return node
+}
+
+// MARK: - 206 反转链表
+func reverseList(_ head: ListNode?) -> ListNode? {
+    
+    let dummy = ListNode(0)
+    dummy.next = head
+    while head?.next != nil {
+        let temp = head?.next
+        head?.next = temp?.next
+        temp?.next = dummy.next
+        dummy.next = temp
+    }
+    return dummy.next
+}
+
+// MARK: - 496. 下一个更大元素 I
+
+// 暴力 时间：O(n^2)
+func nextGreaterElement1(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
+
+    var ret = nums1
+    
+    for (i,n1) in nums1.enumerated() {
+        var cur = -1
+        var flag = false
+        for n2 in nums2 {
+            if n2 == n1 {
+                flag = true
+            }
+            if flag && n2 > n1 {
+                cur = n2
+                break;
+            }
+        }
+        ret[i] = cur
+    }
+    
+    return ret
+}
+
+// 单调栈 时间：O(n) 空间：O(n)
+
+func nextGreaterElement(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
+
+    var ret = nums1
+    
+    // 通过单调栈 构造映射
+    var map = [Int: Int]()
+    var stack = intStack()
+    // 这个for的时间复杂度为O(n+n-1) 即O(n)，因为出栈次数最多n-1次
+    for n in nums2 {
+        if stack.isEmpty {
+            stack.push(n)
+        } else {
+            // 将小于n的元素全部出栈
+            while !stack.isEmpty && n > stack.peek! {
+                map[stack.pop()!] = n
+            }
+            stack.push(n)
+        }
+    }
+    
+    for i in 0..<nums1.count {
+        ret[i] = map[nums1[i]] ?? -1
+    }
+    
+    return ret
 }

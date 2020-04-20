@@ -26,6 +26,7 @@
 		7D1D406C240DE2A500F2FD97 /* Easy_155_最小栈.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1D406B240DE2A500F2FD97 /* Easy_155_最小栈.c */; };
 		7D1DBADF24074FC700BF848F /* Easy_70_爬楼梯.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DBADE24074FC700BF848F /* Easy_70_爬楼梯.c */; };
 		7D1DBAE12407989300BF848F /* Easy_53_最大子序和.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1DBAE02407989300BF848F /* Easy_53_最大子序和.c */; };
+		7D1E3544243434CF00013A37 /* Middle_142_环形链表2.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D1E3543243434CF00013A37 /* Middle_142_环形链表2.c */; };
 		7D20504E2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D20504D2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c */; };
 		7D43200722A1045700253FAC /* Easy_21_合并两个有序链表.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D43200622A1045700253FAC /* Easy_21_合并两个有序链表.c */; };
 		7D469820240E94BB007CCF86 /* Easy_合并排序的数组.c in Sources */ = {isa = PBXBuildFile; fileRef = 7D46981F240E94BB007CCF86 /* Easy_合并排序的数组.c */; };
@@ -82,6 +83,7 @@
 		7D1D406B240DE2A500F2FD97 /* Easy_155_最小栈.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_155_最小栈.c"; sourceTree = "<group>"; };
 		7D1DBADE24074FC700BF848F /* Easy_70_爬楼梯.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_70_爬楼梯.c"; sourceTree = "<group>"; };
 		7D1DBAE02407989300BF848F /* Easy_53_最大子序和.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_53_最大子序和.c"; sourceTree = "<group>"; };
+		7D1E3543243434CF00013A37 /* Middle_142_环形链表2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Middle_142_环形链表2.c"; sourceTree = "<group>"; };
 		7D20504D2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_108_将有序数组转换为二叉搜索树.c"; sourceTree = "<group>"; };
 		7D43200622A1045700253FAC /* Easy_21_合并两个有序链表.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_21_合并两个有序链表.c"; sourceTree = "<group>"; };
 		7D46981F240E94BB007CCF86 /* Easy_合并排序的数组.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "Easy_合并排序的数组.c"; sourceTree = "<group>"; };
@@ -162,10 +164,7 @@
 				7D048E8E229BB8EA0088DDFE /* Easy_19_删除链表的倒数第N个节点.c */,
 				7D43200622A1045700253FAC /* Easy_21_合并两个有序链表.c */,
 				7DFE23FF228D05920042028F /* Easy_28_实现strStr().c */,
-				7D1DBAE02407989300BF848F /* Easy_53_最大子序和.c */,
 				7DFC44EB227EB05000EC1D81 /* Easy_66_加一.c */,
-				7D1DBADE24074FC700BF848F /* Easy_70_爬楼梯.c */,
-				7D1BDA782404AC600012F231 /* Easy_88_合并两个有序数组.c */,
 				7D0749C723155180007C0392 /* Easy_101_对称二叉树.c */,
 				7D4B17E722B735F800AE2DDD /* Easy_104_二叉树的最大深度.c */,
 				7D20504D2403A614009972DD /* Easy_108_将有序数组转换为二叉搜索树.c */,
@@ -176,7 +175,6 @@
 				7D1D3D6A240F34C800638206 /* Easy_204_计数质数.c */,
 				7D1D3D6C240F383300638206 /* Easy_326_3的幂.c */,
 				7D1B2A4A2417251F004EC8F8 /* Easy_543_二叉树的直径.c */,
-				7D8928D92406BD8A007B1DE3 /* Easy_278_第一个错误版本.c */,
 				7D07EC5B2265BDAA008D010D /* Easy_121_股票.c */,
 				7D07EC5F2265C6EE008D010D /* Easy_122_股票2.c */,
 				7D019098228BAD7300D4DA2E /* Easy_125_验证回文串.c */,
@@ -212,6 +210,7 @@
 				7DFF9A71231771DD006BB833 /* Middle_102_层次遍历.c */,
 				7D8928DD240A0594007B1DE3 /* Middle_213_打家劫舍2.c */,
 				7D8928DF240A1027007B1DE3 /* Middle_384_打乱数组.c */,
+				7D1E3543243434CF00013A37 /* Middle_142_环形链表2.c */,
 			);
 			path = Middle;
 			sourceTree = "<group>";
@@ -303,6 +302,7 @@
 				7DFC44EE227EDA6700EC1D81 /* Easy_283_移动零.c in Sources */,
 				7DFF9067228004EE000BF680 /* Easy_1_两数之和.c in Sources */,
 				7D048E8F229BB8EA0088DDFE /* Easy_19_删除链表的倒数第N个节点.c in Sources */,
+				7D1E3544243434CF00013A37 /* Middle_142_环形链表2.c in Sources */,
 				7D1BDA792404AC600012F231 /* Easy_88_合并两个有序数组.c in Sources */,
 				7D0312392285228C005F1EA2 /* Easy_344_反转字符串.c in Sources */,
 				7D1B2A4B2417251F004EC8F8 /* Easy_543_二叉树的直径.c in Sources */,

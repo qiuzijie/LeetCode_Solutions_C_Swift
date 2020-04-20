@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - N皇后 回溯 ***
-var results = [Int](repeating: 0, count: 8)
+private var results = [Int](repeating: 0, count: 8)
 var strList = [[String]]()
 
 func appendStrList(total: Int) {
@@ -129,4 +129,93 @@ func jump1(_ nums: [Int]) -> Int {
     result = nums.count
     appendJump(nums, 0, 1)
     return result
+}
+
+
+// MARK: - 224 基本计算器
+let priorityMap = ["+":1,"-":1,"*":2,"/":2,"(":0,")":3]
+
+func higherPriority(_ c1: String, _ c2: String) -> Bool {
+    return priorityMap[c1]! > priorityMap[c2]!
+}
+
+func math(_ c: String, _ n1: Int, _ n2: Int) -> Int {
+    switch c {
+    case "+":
+        return (n1+n2)
+    case "-":
+        return (n1-n2)
+    case "*":
+        return (n1*n2)
+    case "/":
+        return (n1/n2)
+    default:
+        return 0
+    }
+}
+
+// 利用栈硬写
+func calculate(_ s: String) -> Int {
+    // 记录符号
+    var s1 = [String]()
+    // 记录数字
+    var s2 = [Int]()
+    
+    var ret = 0
+    var temp = ""
+    for str in s {
+        if str <= "9" && str >= "0" {
+            temp += String(str)
+        } else {
+            if temp.count > 0 {
+                s2.append(Int(temp)!)
+                temp = ""
+            }
+            if str == " " {
+                continue
+            } else if str == "(" {
+                s1.append(String(str))
+                continue
+            } else if str == ")" {
+                // 遇到右括号，将括号之间的运算符全部出栈
+                while s1.last != "(" {
+                    let n2 = s2.removeLast()
+                    let n1 = s2.removeLast()
+                    let c = s1.removeLast()
+                    let temp = math(c, n1, n2)
+                    s2.append(temp)
+                }
+                // 移除左括号
+                s1.removeLast()
+                continue
+            }
+
+            // 如果栈顶优先级高于或等于当前运算符就出栈进行运算
+            while s1.count > 0 && !higherPriority(String(str), s1.last!) {
+                // 从数字栈出两个
+                let n2 = s2.removeLast()
+                let n1 = s2.removeLast()
+                let c = s1.removeLast()
+                let temp = math(c, n1, n2)
+                s2.append(temp)
+            }
+            s1.append(String(str))
+        }
+    }
+    
+    if temp.count > 0 {
+        s2.append(Int(temp)!)
+    }
+
+    while s1.count > 0 {
+        let c = s1.removeLast()
+        let n2 = s2.removeLast()
+        let n1 = s2.removeLast()
+        ret = math(c, n1, n2)
+    }
+    if s2.count > 0 {
+        ret = s2[0]
+    }
+    
+    return ret
 }
