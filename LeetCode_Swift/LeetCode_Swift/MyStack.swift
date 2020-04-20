@@ -8,20 +8,20 @@
 
 import Foundation
 
-protocol Stack {
-    associatedtype Element
-    
-    var isEmpty: Bool { get }
-    var size: Int { get }
-    var peek: Element? { get }
-    
-    mutating func push(_ element: Element);
-    mutating func pop() -> Element?;
-}
+//protocol Stack {
+//    associatedtype Element
+//
+//    var isEmpty: Bool { get }
+//    var size: Int { get }
+//    var peek: Element? { get }
+//
+//    mutating func push(_ element: Element);
+//    mutating func pop() -> Element?;
+//}
 
-struct intStack: Stack {
-    typealias Element = Int
-    private var list = [Element]()
+struct intStack {
+
+    private var list = [Int]()
     
     var isEmpty: Bool {
         return list.isEmpty
