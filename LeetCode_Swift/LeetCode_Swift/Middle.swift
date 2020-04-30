@@ -198,27 +198,30 @@ func letterCombinations(_ digits: String) -> [String] {
 }
 
 // MARK: - 46 全排列
-private var results = [[Int]]()
+class solution46{
+    private var results = [[Int]]()
 
-func appendNums(_ nums: [Int], _ curNums: [Int]) {
-    if nums.count == 0 {
-        results.append(curNums)
-    } else {
-        for (i,n) in nums.enumerated() {
-            var cur = curNums
-            cur.append(n)
-            var tempNums = nums
-            tempNums.remove(at: i)
-            appendNums(tempNums, cur)
+    func appendNums(_ nums: [Int], _ curNums: [Int]) {
+        if nums.count == 0 {
+            results.append(curNums)
+        } else {
+            for (i,n) in nums.enumerated() {
+                var cur = curNums
+                cur.append(n)
+                var tempNums = nums
+                tempNums.remove(at: i)
+                appendNums(tempNums, cur)
+            }
         }
+    }
+
+    func permute(_ nums: [Int]) -> [[Int]] {
+        let curNums = [Int]()
+        appendNums(nums, curNums)
+        return results
     }
 }
 
-func permute(_ nums: [Int]) -> [[Int]] {
-    let curNums = [Int]()
-    appendNums(nums, curNums)
-    return results
-}
 
 // MARK: - 15 三数之和 ***
 
@@ -800,6 +803,82 @@ func minIncrementForUnique(_ A: [Int]) -> Int {
     return result
 }
 
+// MARK: - 200 岛屿数量 深度遍历
+
+class Solution200 {
+    
+    func dfs(_ grid: inout [[Character]], _ row: Int, _ column: Int) {
+        guard row >= 0 && column >= 0 && row < grid.count && column < grid[row].count && grid[row][column] == "1" else {
+            return
+        }
+        grid[row][column] = "0"
+        dfs(&grid, row-1, column)
+        dfs(&grid, row+1, column)
+        dfs(&grid, row, column-1)
+        dfs(&grid, row, column+1)
+    }
+    
+    
+    func numIslands(_ grid: [[Character]]) -> Int {
+        var ret = 0
+        var grid = grid
+        
+        for row in 0..<grid.count {
+            for column in 0..<grid[row].count {
+                if grid[row][column] == "1" {
+                    ret += 1
+                    dfs(&grid, row, column)
+                }
+            }
+        }
+        
+        return ret
+    }
+    
+    func numIslands1(_ grid: [[Character]]) -> Int {
+        var visited = grid
+        var ret = 0
+        
+        let R = grid.count
+        for row in 0..<grid.count {
+            let C = grid[row].count
+            for column in 0..<C {
+                if visited[row][column] == "1" {
+                    visited[row][column] = "0"
+                    ret += 1
+                    var queue = [(Int, Int)]()
+                    queue.append((row, column))
+                    while !queue.isEmpty {
+                        let index = queue.removeFirst()
+                        for i in 0..<4 {
+                            var r = index.0
+                            var c = index.1
+                            if i == 0 {
+                                r += 1
+                            } else if i == 1 {
+                                r -= 1
+                            } else if i == 2 {
+                                c -= 1
+                            } else {
+                                c += 1
+                            }
+                            if r >= 0 && c >= 0 && r < R && c < C && visited[r][c] != "3" {
+                                if visited[r][c] == "1" {
+                                    queue.append((r,c))
+                                }
+                                visited[r][c] = "0"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ret
+    }
+}
+
+
     // MARK: - 1162 地图分析 ***** 还没解出来
 
 // 广度遍历，超时
@@ -907,6 +986,92 @@ class SolutionHeap {
                 curNode = target
             }
         }
+    }
+}
+
+// MARK: - 冒泡、选择、插入、希尔 ✔️
+class Solution912_normal {
+    // 冒泡 超时
+    func sortArray1(_ nums: [Int]) -> [Int] {
+        var nums = nums
+        for i in 0..<nums.count {
+            var flag = true
+            for j in 0..<nums.count-i-1 {
+                if nums[j] > nums[j+1] {
+                    let temp = nums[j]
+                    nums[j] = nums[j+1]
+                    nums[j+1] = temp
+                    flag = false
+                }
+            }
+            if flag {
+                break
+            }
+        }
+        return nums
+    }
+    
+    // 直接插入 超时
+    func sortArray2(_ nums: [Int]) -> [Int] {
+        var nums = nums
+        for i in 0..<nums.count {
+            let value = nums[i]
+            var k = i-1
+            while k >= 0 {
+                if nums[k] > value {
+                    nums[k+1] = nums[k]
+                } else {
+                    break
+                }
+                k -= 1
+            }
+            nums[k+1] = value
+        }
+        return nums
+    }
+    
+    // 选择排序 超时
+    func sortArray3(_ nums: [Int]) -> [Int] {
+        var nums = nums
+        for i in 0..<nums.count {
+            var min = nums[i]
+            var index = i
+            for j in i..<nums.count {
+                if nums[j] < min {
+                    min = nums[j]
+                    index = j
+                }
+            }
+            if index != i {
+                let temp = nums[i]
+                nums[i] = nums[index]
+                nums[index] = temp
+            }
+        }
+        return nums
+    }
+    
+    // 希尔排序 性能甚至比sorted还好，堪比快排
+    func sortArray(_ nums: [Int]) -> [Int] {
+        var nums = nums
+        var dk = nums.count/2
+        while dk >= 1 {
+            for i in dk..<nums.count {
+                let value = nums[i]
+                var j = i-dk
+                while j >= 0 {
+                    if nums[j] > value {
+                        nums[j+dk] = nums[j]
+                    } else {
+                        break
+                    }
+                    j -= dk
+                }
+                nums[j+dk] = value
+            }
+            dk = dk/2
+        }
+        return nums
     }
 }
 
