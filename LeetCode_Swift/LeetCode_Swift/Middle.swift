@@ -856,6 +856,60 @@ func maxDistance(_ grid: [[Int]]) -> Int {
 
 // MARK: - 912 排序
 
+// MARK: - 堆排序 ✔️
+// 比快排要慢一半
+// 大顶堆
+class SolutionHeap {
+    
+    func sortArray(_ nums: [Int]) -> [Int] {
+        var nums = nums
+        buildHeap(&nums)
+        
+        var k = nums.count-1
+        while k > 0 {
+            // 堆顶和堆尾交换，数组从末尾逐渐有序
+            nums.swapAt(0, k)
+            k -= 1
+            heapify(&nums, 0, k)
+        }
+        
+        return nums
+    }
+
+    func buildHeap(_ nums: inout [Int]) {
+        if nums.count <= 1 {
+            return
+        }
+        let finalParNode = (nums.count)/2-1
+        // 从最后一个父节点开始调整
+        for i in (0...finalParNode).reversed() {
+            heapify(&nums, i, nums.count-1)
+        }
+    }
+    // 自上而下调整
+    func heapify(_ nums: inout [Int], _ i: Int, _ n: Int) {
+        var curNode = i
+        while true {
+            // (i+1)*2-1 左子节点
+            let l = (curNode+1)*2-1
+            let r = (curNode+1)*2
+            var target = curNode
+            if l <= n && nums[l] > nums[curNode] {
+                target = l
+            }
+            if r <= n && nums[r] > nums[target] {
+                target = r
+            }
+            if target == curNode {
+                break
+            } else {
+                nums.swapAt(curNode, target)
+                curNode = target
+            }
+        }
+    }
+}
+
 // MARK: - 归并✔️
 class solution912_merge {
     // 归并排序 性能是目前O(nlogn)算法中最差的
@@ -1506,9 +1560,10 @@ class Solution117 {
 // MARK: - 347 前k个高频元素
 
 class Solution347 {
-    // 构造小根堆待写
+    // // 待补充堆排序解法，构造小根堆待写
     
     // O(n)，O(n)
+    // 桶排序
     func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
         // map记录出现次数
         var map = [Int: Int]()
@@ -1517,7 +1572,7 @@ class Solution347 {
         }
         
         // 最高的出现频率等于数组大小
-        // 桶排序
+        
         var dp = [[Int]](repeating: [], count: nums.count+1)
         
         for (key, count) in map {
@@ -1573,6 +1628,24 @@ class Solution347 {
 }
 
 // MARK: - 75 颜色分类
+
+// 桶排序
+class Solution75_1 {
+    func sortColors(_ nums: inout [Int]) {
+        var colors = [Int](repeating: 0, count: 3)
+        for num in nums {
+            colors[num] += 1
+        }
+        nums.removeAll()
+        for (i,count) in colors.enumerated() {
+            for _ in 0..<count {
+                nums.append(i)
+            }
+        }
+    }
+}
+
+// 不用额外空间，一趟遍历
 class Solution75 {
     // 0 1 2
     func exchange(_ nums: inout [Int], _ i: Int, _ j: Int){
@@ -1582,10 +1655,11 @@ class Solution75 {
     }
     
     func sortColors(_ nums: inout [Int]) {
-        // 不用额外空间，一趟遍历
         var left = 0
         var right = nums.count-1
         var cur = 0
+        // left 记录0分区的末尾位置
+        // right 记录2分区的末尾位置
         // 合理交换和不遗漏元素的关键在于
         // cur始终大于等于left，并且有时cur不用向前移动
         while cur <= right {
@@ -1604,5 +1678,581 @@ class Solution75 {
                 cur += 1
             }
         }
+    }
+}
+
+
+// MARK:- 215 数组中的第K个最大元素
+// 待补充堆排序解法
+class Solution215 {
+    
+    func pivot(_ nums: inout [Int], _ l: Int, _ r: Int) -> Int {
+        let value = nums[r]
+        var i = l
+        var j = l
+        while j < r {
+            if nums[j] >= value {
+                if i != j {
+                    let temp = nums[i]
+                    nums[i] = nums[j]
+                    nums[j] = temp
+                }
+                i += 1
+            }
+            j += 1
+        }
+        if i != j {
+            let temp = nums[i]
+            nums[i] = nums[j]
+            nums[j] = temp
+        }
+        return i
+    }
+    
+    func findPivot(_ nums: inout [Int], _ l: Int, _ r: Int, _ k: Int) -> Int {
+        if l > r {
+            return -1
+        }
+        let p = pivot(&nums, l, r)
+        
+        if p+1 == k {
+            return p
+        } else if p+1 < k {
+            return findPivot(&nums, p+1, r, k)
+        } else {
+            return findPivot(&nums, l, p-1, k)
+        }
+    }
+    
+    func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+        var nums = nums
+        let p = findPivot(&nums, 0, nums.count-1, k)
+        if p >= 0 && p < nums.count {
+            return nums[p]
+        }
+        return -1
+    }
+}
+
+// MARK: - 162 寻找峰值
+// 时间要：O(log^n)
+// 前提是：只需要到一个峰值，nums[i] ≠ nums[i+1]，nums[-1] = nums[n] = -∞
+class Solution_162 {
+    
+    // 二分查找
+    // 原理：只要数组中存在一个元素比相邻元素大，那么沿着它一定可以找到一个峰值
+    // 若mid 大于 mid+1 说明在 l...mid 里面有峰值
+    // 若mid 小于 mid+1 说明在 mid+1...r 里面有峰值
+    func findPeakElement(_ nums: [Int]) -> Int {
+        var l = 0
+        var r = nums.count-1
+        
+        while l < r {
+            let mid = (l+r)/2
+            if nums[mid] > nums[mid + 1] {
+//                if mid-1 >= 0 && nums[mid-1] > nums[mid] {
+//                    r = mid-1
+//                } else {
+//                    return mid
+//                }
+                r = mid
+            } else {
+                l = mid + 1
+            }
+        }
+        return l
+    }
+    
+    // 线性查找
+    func findPeakElement1(_ nums: [Int]) -> Int {
+        for (i,n) in nums.enumerated() {
+            if i+1 < nums.count {
+                // 只要当前位置大于下一个位置则一定是峰顶，前提是附近没有重复数字
+                if n > nums[i+1] {
+                    return i
+                }
+            } else {
+                return i
+            }
+        }
+        return 0
+    }
+}
+
+// MARK: - 34. 在排序数组中查找元素的第一个和最后一个位置
+// 复杂度必须是 O(log n) 级别。
+// 就是分别两次2分查找最左和最右的元素位置，判断边界有点烦
+// 王争说：很多人都觉得变形的二分查找很难写，主要原因是太追求第一种那样完美、简洁的写法。
+// 而对于我们做工程开发的人来说，代码易读懂、没 Bug，其实更重要，
+class Solution34 {
+    func search(_ nums: [Int], _ target: Int, _ l: Int, _ r: Int, _ flag: Bool) -> Int {
+        var l = l
+        var r = r
+        
+        while l < r {
+            var mid = (l+r)/2
+            if !flag {
+                mid = (l+r+1)/2
+            }
+            let value = nums[mid]
+            if value > target {
+                r = mid-1
+            } else if value < target {
+                l = mid+1
+            } else {
+                if flag {
+                    r = mid
+                } else {
+                    l = mid
+                }
+            }
+        }
+        return l
+    }
+    
+    func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+        if nums.count == 0 {
+            return [-1,-1]
+        }
+        let left = search(nums, target, 0, nums.count-1, true)
+        if nums[left] != target {
+            return [-1,-1]
+        }
+        let right = search(nums, target, left, nums.count-1, false)
+        if nums[right] != target {
+            return [-1,-1]
+        }
+        return [left,right]
+    }
+}
+
+// MARK: - 33 搜索旋转排序数组
+// 时间复杂度要：O(log^n)
+/*
+ 以数组中间点为分区，会将数组分成一个有序数组和一个循环有序数组;
+ 如果首元素小于 mid，说明前半部分是有序的，后半部分是循环有序数组;
+ 如果首元素大于 mid，说明后半部分是有序的，前半部分是循环有序的数组;
+*/
+
+class Solution33 {
+    func findMinest(_ nums: [Int]) -> Int {
+        var l = 0
+        var r = nums.count-1
+        
+        // 先二分找最小元素位置
+        while l < r {
+            let mid = (l+r)/2
+            let value = nums[mid]
+            if value >= nums[l] {// 左半区有序
+                if nums[l] < nums[r] {
+                    // 找到了
+                    break
+                } else {// 说明在右半区
+                    l = mid+1
+                }
+            } else {// 右半区升序，说明最小点在左半区
+                r = mid
+            }
+        }
+        
+        return l
+    }
+    
+    func search(_ nums: [Int], _ l: Int, _ r: Int, _ t: Int) -> Int {
+        if l > r {
+            return -1
+        }
+        var l = l
+        var r = r
+        while l <= r {
+            let mid = (l+r)/2
+            if nums[mid] == t {
+                return mid
+            } else if nums[mid] > t {
+                r = mid-1
+            } else {
+                l = mid+1
+            }
+        }
+        return -1
+    }
+    
+    func search(_ nums: [Int], _ target: Int) -> Int {
+        let pivot = findMinest(nums)
+
+        /*
+         数组被 pivot 分为了两个分区，
+         判断target在哪个分区,
+         然后从在那个分区立面按常规二分找
+         */
+        if pivot == 0 {
+            return search(nums, 0, nums.count-1, target)
+        } else if target >= nums[0] {// 说明在左分区
+            return search(nums, 0, pivot, target)
+        } else {
+            return search(nums, pivot, nums.count-1, target)
+        }
+    }
+}
+
+// MARK: - 240 搜索二维矩阵2
+/*
+ 每行的元素从左到右升序排列。
+ 每列的元素从上到下升序排列。
+ */
+class Solution240 {
+    
+    // 找到小于等于 target 且离的最近的元素
+    func findLatest(_ nums: [Int], _ target: Int) -> Int {
+        var l = 0
+        var r = nums.count-1
+        var ret = -1
+        while l <= r {
+            if nums[l] > target {
+                break
+            }
+            let mid = (l+r)/2
+            let n = nums[mid]
+            if n == target {
+                return mid
+            } else if n > target {
+                r = mid-1
+            } else {
+                l = mid+1
+                ret = mid
+            }
+        }
+        return ret
+    }
+    
+    func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
+        if matrix.count < 1 {
+            return false
+        }
+        //先找所属列(最大的小于 target 的列的首元素)
+        let firstRows = matrix[0]
+        let latestColumn = findLatest(firstRows, target)
+        if latestColumn == -1 {
+            return false
+        } else {
+            // ret 可能存在于所有小于等于 latestRow 的列中
+            // 右下角是最大的，可以排除左上部分
+            var curRow = 0
+            for c in (0...latestColumn).reversed() {
+                var columns = [Int]()
+                for row in curRow..<matrix.count {
+                    columns.append(matrix[row][c])
+                }
+                let latestRow = findLatest(columns, target) + curRow
+                curRow = latestRow
+                if matrix[latestRow][c] == target {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+}
+
+// MARK: - 73 矩阵置零
+/*
+ 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为0。
+ 请使用原地算法。
+ */
+class Solution73 {
+    
+    // 使用额外空间来记录某列某行元素是否需要置为0
+    func setZeroes(_ matrix: inout [[Int]]) {
+        var rowNeed = [Int](repeating:1 , count: matrix.count)
+        var columnNeed = [Int](repeating: 1, count: matrix[0].count)
+        
+        for r in 0..<matrix.count {
+            for c in 0..<matrix[r].count {
+                if matrix[r][c] == 0 {
+                    rowNeed[r] = 0
+                    columnNeed[c] = 0
+                }
+            }
+        }
+        
+        for r in 0..<matrix.count {
+            for c in 0..<matrix[r].count {
+                if rowNeed[r] == 0 || columnNeed[c] == 0 {
+                    matrix[r][c] = 0
+                }
+            }
+        }
+    }
+        
+    
+    // 使用第一列和第一行首位元素来判断此行此列的元素是否需要置为0
+    func setZeroes1(_ matrix: inout [[Int]]) {
+        
+        if matrix.count < 1 {
+            return
+        }
+        
+        var colNeed = false
+        
+        for row in 0..<matrix.count {
+            if matrix[row][0] == 0 {
+                colNeed = true
+            }
+            // 跳过第一列
+            for column in 1..<matrix[row].count {
+                if matrix[row][column] == 0 {
+                    // 将所在列第一个元素置为0
+                    matrix[0][column] = 0
+                    // 将所在行第一个元素置为0
+                    matrix[row][0] = 0
+                }
+            }
+        }
+        
+        // 判断除了第一行第一列的元素，置为0
+        for row in 1..<matrix.count {
+            for column in 1..<matrix[row].count {
+                if matrix[0][column] == 0 || matrix[row][0] == 0 {
+                    matrix[row][column] = 0
+                }
+            }
+        }
+        
+        // 判断第一行需不需要置为0
+        if matrix[0][0] == 0 {
+            for column in 1..<matrix[0].count {
+                matrix[0][column] = 0
+            }
+        }
+        
+        // 判断第一列需不需要置为0
+        if colNeed {
+            for row in 0..<matrix.count {
+                matrix[row][0] = 0
+            }
+        }
+    }
+}
+
+
+// MARK: - 49 字母异位词分组
+class Solution49 {
+    // 原理都是构造哈希表，将同一键值的字符串加入同一数组
+    func groupAnagrams(_ strs: [String]) -> [[String]] {
+        
+        // 比较方法1：两个字符串是异位词：长度相等,排序后相同
+        /*
+         var map = [String: [String]]()
+         for str in strs {
+             let key = String(str.sorted())
+             if var list = map[key] {
+                 list.append(str)
+                 map[key] = list
+             } else {
+                 map[key] = [str]
+             }
+         }
+         */
+        
+        // 比较方法2：将字符串散列化,
+        // key是数量为26的数组，下标代表a-z，值为每个字母出现的次数。
+        var map = [[Int]: [String]]()
+        
+        for str in strs {
+            var key = [Int](repeating: 0, count: 26)
+            for c in str {
+                // k = 0..<26
+                let index = (c.asciiValue! - Character("a").asciiValue!)%26
+                key[Int(index)] += 1
+            }
+            if var list = map[key] {
+                list.append(str)
+                map[key] = list
+            } else {
+                map[key] = [str]
+            }
+        }
+        
+        
+        return Array(map.values)
+    }
+}
+
+// MARK: - 3. 无重复字符的最长子串
+class Solution3 {
+    /*
+     一次遍历，记录当前无重复子串，若遇到重复元素则移除受重复影响部分，更新子串
+     时间：O(n^2)
+     */
+    func lengthOfLongestSubstring(_ s: String) -> Int {
+        /*
+         // curStr.firstIndex 导致 O(n^2)，同时还要删除
+         var ans = 0
+         var curStr = ""
+         for c in s {
+             if let index = curStr.firstIndex(of: c) {
+                 ans = max(ans, curStr.count)
+                 curStr.removeSubrange(curStr.startIndex...index)
+             }
+             curStr += String(c)
+         }
+         */
+        
+        /*
+         优化1
+         时间：O(2n)
+         set.contains 是O(1)，哈希表实现的
+         所以 Set 是无序的，不能用 set.removeFirst()
+         用字符串滑块（l...r）来控制增删
+         但是居然还超时了！！！应该是每次只删一个字符，造成了很多个位置被访问了两次
+         
+        var ans = 0
+        var set = Set<Character>()
+        var r = 0
+        var l = 0
+        while r < s.count {
+            let c = s[s.index(s.startIndex, offsetBy: r)]
+            if set.contains(c) {
+                let d = s[s.index(s.startIndex, offsetBy: l)]
+                l += 1
+                set.remove(d)
+            } else {
+                set.insert(c)
+                r += 1
+                ans = max(ans, r-l)
+            }
+        }
+        return ans
+         */
+        
+        /*
+         优化2：要将方一一次删的多和方二找得快结合
+         时间：O(n)!!
+         */
+        var ans = 0
+        // 记录每个元素最后出现的位置
+        var map = [Character: Int]()
+        var l = 0
+        
+        for (r,c) in s.enumerated() {
+            if let index = map[c] {
+                // 遇到重复的直接将l往前提
+                l = max(l, index + 1)
+            }
+            map[c] = r
+            ans = max(ans, r-l+1)
+        }
+        
+        return ans
+    }
+}
+
+// MARK: - 334. 递增的三元子序列
+class Solution334 {
+    // 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1)
+    // 这个方法应该是在求最大上升子序列中用到的，替换排序中的最小元素
+    // 手动模拟几种情况 (8 9 1 2 3) (8 9 1 2 10)
+    func increasingTriplet(_ nums: [Int]) -> Bool {
+        if nums.count < 3 {
+            return false
+        }
+        var curL = nums[0]
+        var curR = nums[0]
+        var ret = 1
+        for i in 1..<nums.count {
+            let n = nums[i]
+            if n > curR {
+                ret += 1
+                curR = n
+                if ret == 3 {
+                    return true
+                }
+            } else {
+                if n <= curL {
+                    if curR == curL {
+                        curR = n
+                    }
+                    curL = n
+                } else if n <= curR {
+                    curR = n
+                }
+            }
+        }
+        return false
+    }
+}
+
+// MARK: - 621. 任务调度器
+
+// 要最快执行完，就要让 CPU 空闲时间最短，优先执行任务数量最多的
+class Solution621 {
+    
+    func leastInterval1(_ tasks: [Character], _ n: Int) -> Int {
+        if n == 0 {
+            return tasks.count
+        }
+        // 先分类
+        var map = [Int](repeating: 0, count: 26)
+        for t in tasks {
+            let key = t.asciiValue! - Character("A").asciiValue!
+            map[Int(key)] += 1
+        }
+        
+        map = map.sorted { (v1, v2) -> Bool in
+            return v1 > v2
+        }
+        
+        var ret = 0
+        while map[0] > 0 {
+            // n+1 区间内不能有重复元素
+            for i in 0...n {
+                if i < map.count {
+                    map[i] -= 1
+                }
+                ret += 1
+                if map[0] == 0 {
+                    break
+                }
+            }
+            // 每次排序，保证优先执行剩余数量多的任务
+            map = map.sorted(by: { (v1, v2) -> Bool in
+                return v1 > v2
+            })
+        }
+        
+        return ret
+    }
+    
+    /*
+     任务的最短执行时间为 minT = (maxTask-1)*(n+1)+1，
+     同时会产生 minT-maxTask 个空闲时间，
+     我们用其他的任务将这些空闲时间填满，注意如果有多个数量都为最大数量的任务时，最后一行会加入这些元素。
+     如果空闲时间都填满了还不够，那么任务执行时间就等于任务数量，因为这样代表着可以没有任何空闲时间执行完任务。
+     */
+    func leastInterval(_ tasks: [Character], _ n: Int) -> Int {
+        if n == 0 {
+            return tasks.count
+        }
+ 
+        var map = [Int](repeating: 0, count: 26)
+        for t in tasks {
+            let key = t.asciiValue! - Character("A").asciiValue!
+            map[Int(key)] += 1
+        }
+        map = map.sorted()
+        
+        let maxTaskCount = map[25]
+        var maxTaskTime = (maxTaskCount-1)*(n+1)
+        
+        for num in map.reversed() {
+            if num == 0 {
+                break
+            }
+            if num == maxTaskCount {
+                maxTaskTime += 1
+            }
+        }
+        
+        return max(maxTaskTime, tasks.count)
     }
 }

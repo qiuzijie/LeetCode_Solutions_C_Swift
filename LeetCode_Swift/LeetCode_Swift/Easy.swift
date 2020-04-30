@@ -1035,3 +1035,20 @@ func nextGreaterElement(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
     
     return ret
 }
+
+// MARK: - 371 两整数之和
+class Solution371 {
+    func getSum(_ a: Int, _ b: Int) -> Int {
+        // 无进位加法
+        var sum = a^b
+        // 进位
+        var carry = (a&b)<<1
+        
+        while carry != 0 {
+            let temp = sum
+            sum = sum^carry
+            carry = (temp&carry)<<1
+        }
+        return sum
+    }
+}
