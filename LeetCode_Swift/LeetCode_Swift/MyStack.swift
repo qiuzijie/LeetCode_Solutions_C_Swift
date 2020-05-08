@@ -8,16 +8,39 @@
 
 import Foundation
 
-//protocol Stack {
-//    associatedtype Element
-//
-//    var isEmpty: Bool { get }
-//    var size: Int { get }
-//    var peek: Element? { get }
-//
-//    mutating func push(_ element: Element);
-//    mutating func pop() -> Element?;
-//}
+protocol Stack {
+    associatedtype Element
+
+    var isEmpty: Bool { get }
+    var size: Int { get }
+    var peek: Element? { get }
+
+    mutating func push(_ element: Element);
+    mutating func pop() -> Element?;
+}
+
+struct stringStack: Stack {
+    typealias Element = String
+    private var list = [String]()
+    
+    var isEmpty: Bool {
+        return list.isEmpty
+    }
+    var size: Int {
+        return list.count
+    }
+    var peek: String? {
+        return list.last
+    }
+    
+    mutating func push(_ element: String) {
+        list.append(element)
+    }
+    
+    mutating func pop() -> String? {
+        return list.popLast()
+    }
+}
 
 struct intStack {
 

@@ -2421,3 +2421,430 @@ class Solution621 {
         return max(maxTaskTime, tasks.count)
     }
 }
+
+// MARK: - 127 单词接龙
+/*
+ 广都搜索。
+ 不处理时会超时，因为每一层的节点入队，每次都要从 wordList 里面去匹配字符串（依次比较每位字母）。
+ 所以需要对Wordlist进行预处理，来加快匹配速度。
+ */
+class Solution127 {
+    
+    // 输出访问序列
+    func printList(_ dp: [String: String], _ cur: String?) {
+        if cur == nil {
+            return
+        }
+        printList(dp, dp[cur!])
+        print(cur!)
+    }
+    
+    func ladderLength(_ beginWord: String, _ endWord: String, _ wordList: [String]) -> Int {
+        guard wordList.contains(endWord) else {
+            return 0
+        }
+        
+        var wordMap = [String: [String]]()
+        let length = beginWord.count
+        // 预处理Word，拆单词（dog -> *og d*g do*）
+        wordList.forEach { (str) in
+            for i in 0..<length {
+                var cur = str
+                let index = cur.index(cur.startIndex, offsetBy: i)
+                cur.replaceSubrange(index...index, with: "*")
+                if wordMap[cur] == nil {
+                    wordMap[cur] = [str]
+                } else {
+                    var list = wordMap[cur]
+                    list?.append(str)
+                    wordMap[cur] = list
+                }
+            }
+        }
+        
+        var queue = [beginWord]
+        var ret = 1
+        var lastStr: String? = beginWord
+        var visited = [beginWord: 1]
+        var dp = [String: String]()
+        
+        while !queue.isEmpty {
+            let str = queue.removeFirst()
+            if str == endWord {
+                // 输出访问序列
+                printList(dp, str)
+                return ret
+            }
+            
+            for i in 0..<length {
+                var cur = str
+                let index = cur.index(cur.startIndex, offsetBy: i)
+                cur.replaceSubrange(index...index, with: "*")
+                if visited[cur] == nil && wordMap[cur] != nil {
+                    for s in wordMap[cur]! {
+                        if visited[s] == nil {
+                            visited[s] = 1
+                            dp[s] = str
+                            queue.append(s)
+                        }
+                    }
+                    visited[cur] = 1
+                }
+            }
+            if str == lastStr {
+                ret += 1
+                lastStr = queue.last
+            }
+        }
+        return 0
+    }
+}
+
+// MARK: - 230. 二叉搜索树中第K小的元素
+// 中序遍历搜索树得到有序数组
+class Solution230_inorder {
+    // 递归
+    func inorderTraversal(_ root: TreeNode?, _ nums: inout [Int]) {
+        if root == nil {
+            return
+        }
+        inorderTraversal(root?.left, &nums)
+        nums.append(root!.val)
+        inorderTraversal(root?.right, &nums)
+    }
+    
+    func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
+        var sorted = [Int]()
+        // 迭代
+        var stack = [TreeNode]()
+        var node = root
+        while node != nil || !stack.isEmpty {
+            while node != nil {
+                stack.append(node!)
+                node = node?.left
+            }
+            node = stack.removeLast()
+            sorted.append(node!.val)
+            node = node?.right
+        }
+        return sorted[k-1]
+    }
+}
+
+// MARK: - 130. 被围绕的区域
+/*
+ 任何不在边界上，或不与边界上的 'O' 相连的 'O' 最终都会被填充为 'X'。
+ 其实就是找O的区域是否与边界相连。
+ */
+class Solution130 {
+    // BFS
+    // 如果每次用 curIdxs 记录当前O区域，然后根据区域是否挨着边界再决定替不替换O，相当耗时
+    // 所以我们可以直接找位于边界的O,然后将这些区域保护起来。最后遍历完统一改。
+    func solve(_ board: inout [[String]]) {
+        if board.count < 1 {
+            return
+        }
+        for row in 0..<board.count {
+            for column in 0..<board[0].count {
+                guard row == 0 || column == 0 || row == board.count-1 || column == board[0].count-1 else {
+                    continue
+                }
+                if board[row][column] == "O" {
+                    board[row][column] = "*"
+                    var curQueue = [(row, column)]
+                    while !curQueue.isEmpty {
+                        let idx = curQueue.removeFirst()
+                        for i in 0...3 {
+                            var r = idx.0
+                            var c = idx.1
+                            if i == 0 {
+                                r -= 1
+                            } else if i == 1 {
+                                r += 1
+                            } else if i == 2 {
+                                c -= 1
+                            } else {
+                                c += 1
+                            }
+                            if r >= 0 &&
+                                c >= 0 &&
+                                r <= board.count-1 &&
+                                c <= board[0].count-1 {
+                                if board[r][c] == "O" {
+                                    curQueue.append((r,c))
+                                    board[r][c] = "*"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+        for row in 0..<board.count {
+            for column in 0..<board[0].count {
+                if board[row][column] == "*" {
+                    board[row][column] = "O"
+                } else if board[row][column] == "O" {
+                    board[row][column] = "X"
+                }
+            }
+        }
+    }
+    
+    // DFS
+    func solve2(_ board: inout [[Character]]) {
+        if board.count < 1 {
+            return
+        }
+        for row in 0..<board.count {
+            for column in 0..<board[0].count {
+                guard row == 0 || column == 0 || row == board.count-1 || column == board[0].count-1 else {
+                    continue
+                }
+                if board[row][column] == "O" {
+                    board[row][column] = "*"
+                    var stack = [(row, column)]
+                    while !stack.isEmpty {
+                        // 每次只是从栈顶拿一个而不出栈
+                        let idx = stack.last!
+                        var flag = true
+                        for i in 0...3 {
+                            var r = idx.0
+                            var c = idx.1
+                            if i == 0 {
+                                r -= 1
+                            } else if i == 1 {
+                                r += 1
+                            } else if i == 2 {
+                                c -= 1
+                            } else {
+                                c += 1
+                            }
+                            if r >= 0 &&
+                                c >= 0 &&
+                                r <= board.count-1 &&
+                                c <= board[0].count-1 {
+                                if board[r][c] == "O" {
+                                    stack.append((r,c))
+                                    board[r][c] = "*"
+                                    flag = false
+                                    break;
+                                }
+                            }
+                        }
+                        if flag {//没有新元素入栈时才pop
+                            stack.removeLast()
+                        }
+                    }
+                }
+            }
+        }
+    
+        for row in 0..<board.count {
+            for column in 0..<board[0].count {
+                if board[row][column] == "*" {
+                    board[row][column] = "O"
+                } else if board[row][column] == "O" {
+                    board[row][column] = "X"
+                }
+            }
+        }
+    }
+    
+    // DFS 递归
+    func dfs(_ board: inout [[Character]], _ row: Int, _ column: Int) {
+        guard row >= 0 &&
+            column >= 0 &&
+            row <= board.count-1 &&
+            column <= board[0].count-1 else {
+            return
+        }
+        if board[row][column] == "O" {
+            board[row][column] = "*"
+            for i in 0...3 {
+                var r = row
+                var c = column
+                if i == 0 {
+                    r -= 1
+                } else if i == 1 {
+                    r += 1
+                } else if i == 2 {
+                    c -= 1
+                } else {
+                    c += 1
+                }
+                dfs(&board, r, c)
+            }
+        }
+    }
+    
+    func solve3(_ board: inout [[Character]]) {
+        if board.count < 1 {
+            return
+        }
+        for row in 0..<board.count {
+            for column in 0..<board[0].count {
+                guard row == 0 || column == 0 || row == board.count-1 || column == board[0].count-1 else {
+                    continue
+                }
+                dfs(&board, row, column)
+            }
+        }
+    
+        for row in 0..<board.count {
+            for column in 0..<board[0].count {
+                if board[row][column] == "*" {
+                    board[row][column] = "O"
+                } else if board[row][column] == "O" {
+                    board[row][column] = "X"
+                }
+            }
+        }
+    }
+}
+
+// MARK: - 207. 课程表
+/*
+ 课程表为一个有向图，即判断是否存在循环（使用DFS 或 拓扑路径来判断）
+ */
+
+// 深度遍历，检查是否有环
+class Solution207_DFS {
+    func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
+        var adjacency = [[Int]](repeating: [Int](), count: numCourses)
+        // 构造邻接表
+        for course in prerequisites {
+            if let l = course.first, let r = course.last {
+                adjacency[l].append(r)
+            }
+        }
+        // 0代表未访问 1代表当前路径访问过 -1代表之前已经访问到底了的
+        var visited = [Int](repeating: 0, count: numCourses)
+        for head in 0..<adjacency.count {
+            if visited[head] == 0 {
+                visited[head] = 1
+                var stack = [head]
+                while !stack.isEmpty {
+                    let peek = stack.last!
+                    var flag = true
+                    for c in adjacency[peek] {
+                        if visited[c] == 1 {
+                            return false
+                        }
+                        if visited[c] == 0 {
+                            visited[c] = 1
+                            stack.append(c)
+                            flag = false
+                            break;
+                        }
+                    }
+                    if flag {
+                        visited[peek] = -1
+                        stack.removeLast()
+                    }
+                }
+            }
+        }
+        return true
+    }
+}
+
+/*
+ 有向图
+ BFS从入度为0的课程逐渐构造拓扑路径
+ 若不能构造即有环则失败。
+ */
+class Solution207_拓扑路径 {
+    // 邻接表来加快找到所有出度课程，并且大大减少内存占用
+    func canFinish2(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
+        var adjacency = [[Int]](repeating: [Int](), count: numCourses)
+        // 记录每个课程的入度，避免每次都去遍历矩阵找没有入度的课程。
+        var indegrees = [Int](repeating: 0, count: numCourses)
+        // 构造邻接表和入度表
+        for course in prerequisites {
+            if let l = course.first, let r = course.last {
+                if l == r {
+                    return false
+                }
+                var list = adjacency[l]
+                list.append(r)
+                adjacency[l] = list
+                indegrees[r] += 1
+            }
+        }
+        
+        var queue = [Int]()
+        // 入度为0的课程入队
+        for c in 0..<numCourses {
+            if indegrees[c] == 0 {
+                queue.append(c)
+            }
+        }
+        
+        var ret = numCourses
+        
+        while !queue.isEmpty {
+            let course = queue.removeFirst()
+            ret -= 1
+            // 判断入度为0的课程的所有出度
+            for c in adjacency[course] {
+                // 判断c课程是否没有入度了
+                indegrees[c] -= 1
+                if indegrees[c] == 0 {
+                    queue.append(c)
+                }
+            }
+        }
+        return (ret == 0)
+    }
+    /*
+     有向图
+     邻接矩阵构造图，方便找没有入度的课程，但是使用入度表更方便。
+     从入度为0的课程逐渐构造拓扑路径
+     若不能构造即有环则失败。
+     */
+    func canFinish1(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
+        var map = [[Int]](repeating: [Int](repeating: 0, count: numCourses), count: numCourses)
+        // 记录每个课程的入度，避免每次都去遍历矩阵找没有入度的课程。
+        var indegrees = [Int](repeating: 0, count: numCourses)
+        // 构造邻接矩阵
+        for course in prerequisites {
+            if let l = course.first, let r = course.last {
+                if l == r {
+                    return false
+                }
+                map[l][r] = 1
+                indegrees[r] += 1
+            }
+        }
+        
+        var queue = [Int]()
+        // 入度为0的课程入队
+        for c in 0..<numCourses {
+            if indegrees[c] == 0 {
+                queue.append(c)
+            }
+        }
+        
+        var ret = numCourses
+        
+        while !queue.isEmpty {
+            let course = queue.removeFirst()
+            ret -= 1
+            // 把入度为0的课程的所有出度删掉
+            for c in 0..<numCourses {
+                if map[course][c] == 1 {
+                    map[course][c] = 0
+                    // 判断c课程是否没有入度了
+                    indegrees[c] -= 1
+                    // 新出现的入度为0的课程入队
+                    if indegrees[c] == 0 {
+                        queue.append(c)
+                    }
+                }
+            }
+        }
+        return (ret == 0)
+    }
+}

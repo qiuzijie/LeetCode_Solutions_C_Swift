@@ -1052,3 +1052,31 @@ class Solution371 {
         return sum
     }
 }
+
+// MARK: - 202 快乐数
+/*
+ int64有19位，假设每位为9，最大的每位平方和才 19*81 = 1539，所以肯定不会无限增大。
+ 所以要么最后变为1，要么会进入小于1539的循环中。
+ 终止条件为：循环或1
+ */
+public class Solution202 {
+    func isHappy(_ n: Int) -> Bool {
+        var map = [Int: Int]()
+        var n = n
+        while true {
+            var cur = 0
+            while n > 0 {
+                let a = n%10
+                cur += a*a
+                n = n/10
+            }
+            if cur == 1 {
+                return true
+            } else if map[cur] != nil {
+                return false
+            }
+            map[cur] = 1
+            n = cur
+        }
+    }
+}
