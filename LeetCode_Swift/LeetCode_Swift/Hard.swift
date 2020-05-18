@@ -332,3 +332,49 @@ class Solution25 {
         return dummy.next
     }
 }
+// MARK: - 329. 矩阵中的最长递增路径
+/*
+ dfs+记忆化搜索
+ */
+class Solution329 {
+    
+    final let dirs = [(0,1),(1,0),(-1,0),(0,-1)]
+    
+    func dfs(_ matrix: [[Int]],
+             _ curIdx:(Int, Int),
+             _ dp: inout [[Int]]) -> Int {
+        if dp[curIdx.0][curIdx.1] > 0 {
+            return dp[curIdx.0][curIdx.1]
+        }
+        let curNum = matrix[curIdx.0][curIdx.1]
+
+        for d in dirs {
+            let r = curIdx.0 + d.0
+            let c = curIdx.1 + d.1
+            guard r >= 0 && r < matrix.count && c >= 0 && c < matrix[r].count else {
+                continue
+            }
+            if matrix[r][c] > curNum {
+                let cur = dfs(matrix, (r,c), &dp)
+                dp[r][c] = cur
+                dp[curIdx.0][curIdx.1] = max(dp[curIdx.0][curIdx.1], cur)
+            }
+        }
+        dp[curIdx.0][curIdx.1]+=1
+        return dp[curIdx.0][curIdx.1]
+    }
+    
+    func longestIncreasingPath(_ matrix: [[Int]]) -> Int {
+        if matrix.count < 1 {
+            return 0
+        }
+        var dp = [[Int]](repeating: [Int](repeating: 0, count: matrix[0].count), count: matrix.count)
+        var ret = 0
+        for row in 0..<matrix.count {
+            for column in 0..<matrix[row].count {
+                ret = max(ret, dfs(matrix, (row, column), &dp))
+            }
+        }
+        return ret
+    }
+}
