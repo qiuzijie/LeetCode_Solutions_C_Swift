@@ -1052,3 +1052,44 @@ class Solution371 {
         return sum
     }
 }
+
+// MARK: - 21. 合并两个有序链表
+class Solution21 {
+    // 递归 递归公示写不清楚
+    func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        guard l1 != nil else {
+            return l2
+        }
+        guard l2 != nil else {
+            return l1
+        }
+        
+        if l1!.val < l2!.val {
+            l1?.next = mergeTwoLists(l1?.next, l2)
+            return l1
+        } else {
+            l2?.next = mergeTwoLists(l2?.next, l1)
+            return l2
+        }
+    }
+    
+    // 常规做法
+    func mergeTwoLists1(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        let dummy = ListNode(0)
+        var l1 = l1
+        var l2 = l2
+        var node = dummy
+        while l1 != nil && l2 != nil {
+            if l1!.val > l2!.val {
+                node.next = l2
+                l2 = l2?.next
+            } else {
+                node.next = l1
+                l1 = l1?.next
+            }
+            node = node.next!
+        }
+        node.next = l1 != nil ? l1: l2
+        return dummy.next
+    }
+}

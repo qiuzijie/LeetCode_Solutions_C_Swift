@@ -1724,9 +1724,60 @@ class Solution117 {
 
 // MARK: - 347 前k个高频元素
 
-class Solution347 {
-    // // 待补充堆排序解法，构造小根堆待写
+class Solution347_heap {
+    // 利用堆，每次插入的时间复杂度为：O(logk)，总时间复杂度为：O(nlogk)
+    func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
+        var map = [Int: Int]()
+        for n in nums {
+            map[n, default:0] += 1
+        }
+        var heap = [Int]()
+        for (key,_) in map {
+            insert(&heap, map, key, k)
+        }
+        return heap
+    }
     
+    func insert(_ nums: inout [Int], _ map: [Int: Int], _ key: Int, _ size: Int) {
+        if nums.count == size {
+            // 插入的元素大于小顶堆中最小的元素
+            if map[nums.first!]! < map[key]! {
+                nums[0] = key
+                var curIdx = 0
+                while true {
+                    let lc = (curIdx+1)*2-1 // 左孩子
+                    let lr = (curIdx+1)*2 // 右孩子
+                    var target = curIdx
+                    if lc <= nums.count-1 && map[nums[lc]]! < map[nums[target]]! {
+                        target = lc
+                    }
+                    if lr <= nums.count-1 && map[nums[lr]]! < map[nums[target]]! {
+                        target = lr
+                    }
+                    if target == curIdx {
+                        break
+                    } else {
+                        nums.swapAt(target, curIdx)
+                        curIdx = target
+                    }
+                }
+            }
+        } else {
+            nums.append(key)
+            var curIdx = nums.count-1
+            var parIdx = (curIdx-1)/2
+            while parIdx >= 0 && map[nums[parIdx]]! > map[nums[curIdx]]! {
+                nums.swapAt(parIdx, curIdx)
+                curIdx = parIdx
+                parIdx = (curIdx-1)/2
+            }
+        }
+    }
+}
+
+
+class Solution347 {
+
     // O(n)，O(n)
     // 桶排序
     func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
@@ -1848,7 +1899,54 @@ class Solution75 {
 
 
 // MARK:- 215 数组中的第K个最大元素
-// 待补充堆排序解法
+
+class Solution215_heap {
+    // 构造大小为k的小顶堆，第一个元素就是第k大
+    func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+        var heap = [Int]()
+        for n in nums {
+            insert(&heap, n, k)
+        }
+        return heap.first!
+    }
+    
+    func insert(_ nums: inout [Int], _ num: Int, _ size: Int) {
+        if nums.count == size {
+            // 插入的元素大于小顶堆中最小的元素
+            if nums.first! < num {
+                nums[0] = num
+                var curIdx = 0
+                while true {
+                    let lc = (curIdx+1)*2-1 // 左孩子
+                    let lr = (curIdx+1)*2 // 右孩子
+                    var target = curIdx
+                    if lc <= nums.count-1 && nums[lc] < nums[target] {
+                        target = lc
+                    }
+                    if lr <= nums.count-1 && nums[lr] < nums[target] {
+                        target = lr
+                    }
+                    if target == curIdx {
+                        break
+                    } else {
+                        nums.swapAt(target, curIdx)
+                        curIdx = target
+                    }
+                }
+            }
+        } else {
+            nums.append(num)
+            var curIdx = nums.count-1
+            var parIdx = (curIdx-1)/2
+            while parIdx >= 0 && nums[parIdx] > nums[curIdx] {
+                nums.swapAt(parIdx, curIdx)
+                curIdx = parIdx
+                parIdx = (curIdx-1)/2
+            }
+        }
+    }
+}
+
 class Solution215 {
     
     func pivot(_ nums: inout [Int], _ l: Int, _ r: Int) -> Int {
@@ -1889,6 +1987,7 @@ class Solution215 {
         }
     }
     
+    // 利用快排的分割区间
     func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
         var nums = nums
         let p = findPivot(&nums, 0, nums.count-1, k)
@@ -2246,8 +2345,8 @@ class Solution49 {
 // MARK: - 3. 无重复字符的最长子串
 class Solution3 {
     /*
-     一次遍历，记录当前无重复子串，若遇到重复元素则移除受重复影响部分，更新子串
-     时间：O(n^2)
+     一次遍历
+     时间：O(n)
      */
     func lengthOfLongestSubstring(_ s: String) -> Int {
         /*
@@ -2419,5 +2518,37 @@ class Solution621 {
         }
         
         return max(maxTaskTime, tasks.count)
+    }
+}
+
+
+// MARK: - 1439. 有序矩阵中的第 k 个最小数组和
+// 暴力
+class Solution {
+    func kthSmallest(_ mat: [[Int]], _ k: Int) -> Int {
+        var lastMinRows = [Int]()
+        
+        for r in 0..<mat.count {
+            var curRows = [Int]()
+            for c in 0..<mat[r].count {
+                if c >= k {
+                    break
+                }
+                if lastMinRows.count > 0 {
+                    for num in lastMinRows {
+                        curRows.append(num+mat[r][c])
+                    }
+                } else {
+                    curRows.append(mat[r][c])
+                }
+            }
+            curRows.sort()
+            if curRows.count > k {
+                curRows.removeSubrange(k...curRows.count-1)
+            }
+            lastMinRows = curRows
+        }
+        
+        return lastMinRows[k-1]
     }
 }

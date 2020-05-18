@@ -219,3 +219,116 @@ func calculate(_ s: String) -> Int {
     
     return ret
 }
+
+
+// MARK: - 23. 合并K个排序链表
+class Solution23 {
+    
+    // 利用优先级队列（堆）
+    func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+
+        var minQueue = [ListNode]()
+        for node in lists {
+            heapInsert(node, &minQueue)
+        }
+        
+        let dummy = ListNode(0)
+        var node = dummy
+        
+        while !minQueue.isEmpty {
+            let min = popPeek(&minQueue)
+            if let n = min.next {
+                heapInsert(n, &minQueue)
+            }
+            node.next = min
+            node = node.next!
+        }
+        
+        return dummy.next
+    }
+    // 构造小顶堆
+    func heapInsert(_ node: ListNode?, _ list: inout [ListNode]) {
+        if let node = node {
+            list.append(node)
+            var curIdx = list.count-1
+            // 自下而上调整
+            while curIdx > 0 && list[(curIdx-1)/2].val > list[curIdx].val {
+                list.swapAt((curIdx-1)/2, curIdx)
+                curIdx = (curIdx-1)/2
+            }
+        }
+    }
+    
+    func popPeek(_ list: inout [ListNode]) -> ListNode {
+        let peek = list.first
+        if list.count > 1 {
+            list[0] = list.last!
+        }
+        list.removeLast()
+        var curIdx = 0
+        while true {
+            let lc = (curIdx+1)*2-1 // 左孩子
+            let lr = (curIdx+1)*2 // 右孩子
+            var target = curIdx
+            if lc <= list.count-1 && list[lc].val < list[curIdx].val {
+                target = lc
+            }
+            if lr <= list.count-1 && list[lr].val < list[target].val {
+                target = lr
+            }
+            if target == curIdx {
+                break
+            } else {
+                list.swapAt(curIdx, target)
+                curIdx = target
+            }
+        }
+        return peek!
+    }
+}
+
+// MARK: - 25. K 个一组翻转链表
+/*
+ 不足k个不翻转。常数的额外空间。
+ */
+class Solution25 {
+    /*
+     得到链表长度，用于判断啥时候结束翻转
+     原地翻转
+     */
+    func reverseKGroup(_ head: ListNode?, _ k: Int) -> ListNode? {
+        var length = 0
+        var node = head
+        while node != nil {
+            node = node?.next
+            length += 1
+        }
+        if length < k || k < 2 {
+            return head
+        }
+        let dummy = ListNode(0)
+        dummy.next = head
+        var pre = dummy
+        var curNode = head
+        var tempK = k-1
+        
+        while curNode?.next != nil {
+            let temp = curNode?.next!
+            curNode?.next = temp?.next
+            temp?.next = pre.next
+            pre.next = temp
+            tempK -= 1
+            if tempK == 0 {// 开始下一组翻转
+                length -= k
+                if length < k {
+                    break;
+                }
+                tempK = k-1
+                pre = curNode!
+                curNode = curNode?.next
+            }
+        }
+        
+        return dummy.next
+    }
+}

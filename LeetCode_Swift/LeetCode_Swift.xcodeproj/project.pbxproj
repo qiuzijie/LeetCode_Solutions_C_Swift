@@ -13,6 +13,7 @@
 		7D2C5EC02442A4C400357A7F /* MyTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C5EBF2442A4C400357A7F /* MyTree.swift */; };
 		7D469822241339EB007CCF86 /* MyStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D469821241339EB007CCF86 /* MyStack.swift */; };
 		7D469824241339F7007CCF86 /* MyQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D469823241339F7007CCF86 /* MyQueue.swift */; };
+		7D53CCE4245C04DA002F8831 /* MyHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D53CCE3245C04DA002F8831 /* MyHeap.swift */; };
 		7D88D17C242B54C500942431 /* Hard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88D17B242B54C500942431 /* Hard.swift */; };
 		7DFC689322815EBD002DFE97 /* Middle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFC689222815EBD002DFE97 /* Middle.swift */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 		7D2C5EBF2442A4C400357A7F /* MyTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTree.swift; sourceTree = "<group>"; };
 		7D469821241339EB007CCF86 /* MyStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStack.swift; sourceTree = "<group>"; };
 		7D469823241339F7007CCF86 /* MyQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQueue.swift; sourceTree = "<group>"; };
+		7D53CCE3245C04DA002F8831 /* MyHeap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeap.swift; sourceTree = "<group>"; };
 		7D88D17B242B54C500942431 /* Hard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hard.swift; sourceTree = "<group>"; };
 		7DFC689222815EBD002DFE97 /* Middle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Middle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,6 +78,7 @@
 				7D469821241339EB007CCF86 /* MyStack.swift */,
 				7D469823241339F7007CCF86 /* MyQueue.swift */,
 				7D2127772435705100EFF7EE /* MyListNode.swift */,
+				7D53CCE3245C04DA002F8831 /* MyHeap.swift */,
 				7D07EC5D2265BE29008D010D /* Easy.swift */,
 				7DFC689222815EBD002DFE97 /* Middle.swift */,
 				7D88D17B242B54C500942431 /* Hard.swift */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D2127782435705100EFF7EE /* MyListNode.swift in Sources */,
+				7D53CCE4245C04DA002F8831 /* MyHeap.swift in Sources */,
 				7D88D17C242B54C500942431 /* Hard.swift in Sources */,
 				7D469822241339EB007CCF86 /* MyStack.swift in Sources */,
 				7D07EC412265BD80008D010D /* main.swift in Sources */,
