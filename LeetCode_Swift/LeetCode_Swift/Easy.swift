@@ -446,6 +446,61 @@ func strStr1(_ haystack: String, _ needle: String) -> Int {
     return -1
 }
 
+// RK 算法
+// 超时，字符串特别长的时候，构造hash至少都需要O(m)
+func strStr3(_ haystack: String, _ needle: String) -> Int {
+    if haystack.count < needle.count {
+        return -1
+    }
+    // 用来随机存取字符
+    var characterList = [Character]()
+    // 构造 haystack 的子字符串的hash值。
+    // 构造 needle 的hash 值。
+    var hashMap = [Int]()
+    var curHash = 0
+    var needleHash = 0
+    needle.forEach { (c) in
+        needleHash += Int(c.asciiValue! - Character("a").asciiValue!)
+    }
+    var count = 0
+    let needleCount = needle.count// 这个也很耗时。。
+    let haystackCount = haystack.count// 这个也很耗时。。
+    haystack.forEach { (c) in
+        characterList.append(c)
+        if count < needleCount {
+            curHash += Int(c.asciiValue! - Character("a").asciiValue!)
+        }
+        count += 1
+    }
+    hashMap.append(curHash)
+    
+    for i in 0...haystackCount-needleCount {
+        if i > 0 {
+            let prev = characterList[i-1].asciiValue! - Character("a").asciiValue!
+            let last = characterList[i+needle.count-1].asciiValue! - Character("a").asciiValue!
+            curHash = curHash-Int(prev)+Int(last)
+        }
+        // 哈希值相同才进行下一步判断
+        if curHash == needleHash {
+            var flag = true
+            for j in i..<i+needle.count {
+                // 每一位开始匹配
+                let c1 = haystack[haystack.index(haystack.startIndex, offsetBy: j)]
+                let c2 = needle[needle.index(needle.startIndex, offsetBy: j-i)]
+                if c1 != c2 {
+                    flag = false
+                    break
+                }
+            }
+            if flag {
+                return i
+            }
+        }
+    }
+    return -1
+}
+
+
 // MARK: - 30 报数
 func countAndSay(_ n: Int) -> String {
     var nums = [Int]()
