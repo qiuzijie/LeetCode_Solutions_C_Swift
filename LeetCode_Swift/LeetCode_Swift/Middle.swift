@@ -640,7 +640,84 @@ func subsets(_ nums: [Int]) -> [[Int]] {
 
 // MARK: - 820 单词的压缩编码 ** 字典树
  
-// 字典树：没写
+// 字典树
+class Solution820_TrieTree {
+    
+    class TrieTree {
+        public var val: Character?
+        public var childs = [TrieTree?](repeating: nil, count: 26)
+        public var height: Int
+        public var count: Int
+        
+        public init(_ val: Character?, _ h: Int) {
+            self.val = val
+            self.height = h
+            self.count = 0
+        }
+        
+        public func insertNode(_ cha: Character) -> (TrieTree, Bool) {
+            let index = cha.asciiValue! - Character("a").asciiValue!
+            var node = self.childs[Int(index)]
+            var flag = false
+            if node == nil {
+                flag = true
+                node = TrieTree(cha, self.height+1)
+                self.childs[Int(index)] = node!
+                self.count += 1
+            }
+            return (node!, flag)
+        }
+    }
+    
+    func minimumLengthEncoding(_ words: [String]) -> Int {
+        if words.count == 0 {
+            return 0
+        }
+        // 构造字典树
+        let head = TrieTree(nil, 0)
+        var nodeList = [TrieTree]()
+        
+        for str in words {
+            var curNode = head
+            let strList = Array(str)
+            for i in (0..<strList.count).reversed() {
+                let c = strList[i]
+                let ret = curNode.insertNode(c)
+                curNode = ret.0
+                if i == 0 && ret.1 {
+                    // 将新增的叶子节点加入数组
+                    nodeList.append(curNode)
+                }
+            }
+        }
+        // 根节点到所有叶节点路径和
+        // 递归求
+//        dfsHeight(head, 0)
+        //利用数组
+        for node in nodeList {
+            if node.count == 0 {
+                ret += node.height+1
+            }
+        }
+        return ret
+    }
+    
+    var ret = 0
+    
+    func dfsHeight(_ tree: TrieTree?, _ curHeight: Int) {
+        var flag = true
+        for node in tree!.childs {
+            if node != nil {
+                flag = false
+                dfsHeight(node, curHeight+1)
+            }
+        }
+        if flag {
+            // 叶节点后面补#，所以加1
+            ret += curHeight+1
+        }
+    }
+}
 
 // 保留所有不是其他单词后缀的字符串
 func minimumLengthEncoding(_ words: [String]) -> Int {
@@ -2555,7 +2632,7 @@ class Solution621 {
 
 // MARK: - 1439. 有序矩阵中的第 k 个最小数组和
 // 暴力
-class Solution {
+class Solution1439 {
     func kthSmallest(_ mat: [[Int]], _ k: Int) -> Int {
         var lastMinRows = [Int]()
         
@@ -2585,7 +2662,7 @@ class Solution {
 }
 // MARK: - 127 单词接龙
 /*
- 广都搜索。
+ BFS
  不处理时会超时，因为每一层的节点入队，每次都要从 wordList 里面去匹配字符串（依次比较每位字母）。
  所以需要对Wordlist进行预处理，来加快匹配速度。
  */
@@ -2695,8 +2772,104 @@ class Solution230_inorder {
 // MARK: - 130. 被围绕的区域
 /*
  任何不在边界上，或不与边界上的 'O' 相连的 'O' 最终都会被填充为 'X'。
- 其实就是找O的区域是否与边界相连。
+ 其实就是将在边界上为O连通的区域找出来
  */
+
+/*
+ 并查集
+ 一维数组：parents[] 记录父节点
+ isConnect: find[i] == find[j]
+ find： 找父节点
+ union：合并两个集合（指向同一父节点）
+ */
+
+class MyUnion {
+    var parents = [Int]()
+    
+    init(_ count: Int) {
+        for i in 0..<count {
+            parents.append(i)
+        }
+    }
+    
+    func find(node: Int) -> Int {
+        var node = node
+        while parents[node] != node {
+            // 当前节点的父节点 指向父节点的父节点.
+            // 保证一个连通区域最终的parents只有一个.加快find判断
+            parents[node] = parents[parents[node]];
+            node = parents[node]
+        }
+        return node
+    }
+    
+    func union(_ node1: Int, _ node2: Int) {
+        let p1 = find(node: node1)
+        let p2 = find(node: node2)
+        if p1 != p2 {
+            parents[p1] = p2
+        }
+    }
+    
+    func isConnected(_ node1: Int, _ node2: Int) -> Bool {
+        return (find(node: node1) == find(node: node2))
+    }
+}
+
+class Solution130_union {
+    func node(c: Int, r: Int, C: Int) -> Int {
+        return r*C + c
+    }
+    func solve(_ board: inout [[String]]) {
+        if board.count < 1 {
+            return
+        }
+        let C = board[0].count
+        let union = MyUnion(board.count*C+1)
+        let dummyNode = board.count*C
+        
+        for r in 0..<board.count {
+            for c in 0..<board[0].count {
+                // 找到边界为O的
+                if board[r][c] == "O" {
+                    // 边界为O的，和 dummynode 相连
+                    let curNode = node(c: c, r: r, C: C)
+                    if r == 0 || c == 0 || r == board.count-1 || c == C-1 {
+                        union.union(curNode, dummyNode)
+                    } else {
+                        // 和上下左右合并成一个连通区域.
+                        if r > 0 && board[r-1][c] == "O" {
+                            union.union(curNode, node(c: c, r: r-1, C: C))
+                        }
+                        if r < board.count-1 && board[r+1][c] == "O" {
+                            union.union(curNode, node(c: c, r: r+1, C: C))
+                        }
+                        if c > 0 && board[r][c-1] == "O" {
+                            union.union(curNode, node(c: c-1, r: r, C: C))
+                        }
+                        if c < C-1 && board[r][c+1] == "O" {
+                            union.union(curNode, node(c: c+1, r: r, C: C))
+                        }
+                    }
+                }
+            }
+        }
+        
+        for r in 0..<board.count {
+            for c in 0..<board[0].count {
+                // 这个很耗时
+                if union.isConnected(node(c: c, r: r, C: C), dummyNode) {
+                    board[r][c] = "O"
+                } else {
+                    board[r][c] = "X"
+                }
+            }
+        }
+    }
+}
+
+
+
 class Solution130 {
     // BFS
     // 如果每次用 curIdxs 记录当前O区域，然后根据区域是否挨着边界再决定替不替换O，相当耗时
@@ -2928,9 +3101,7 @@ class Solution207_拓扑路径 {
                 if l == r {
                     return false
                 }
-                var list = adjacency[l]
-                list.append(r)
-                adjacency[l] = list
+                adjacency[l].append(r)
                 indegrees[r] += 1
             }
         }
@@ -3058,6 +3229,48 @@ class Solution210 {
             }
         }
         return path
+    }
+}
+
+// DFS：逆邻接表
+class Solution210_2 {
+    func findOrder(_ numCourses: Int, _ prerequisites: [[Int]]) -> [Int] {
+        // 逆邻接表
+        var inverseLinkList = [[Int]](repeating: [Int](), count: numCourses)
+        // 已访问表 1当前轮访问 2已删除
+        var visited = [Int: Int]()
+        var ret = [Int]()
+        
+        for couple in prerequisites {
+            inverseLinkList[couple.first!].append(couple.last!)
+        }
+        
+        for i in 0..<numCourses {
+            if visited[i] != 2 {
+                var stack = [i]
+                while !stack.isEmpty {
+                    let cur = stack.first!
+                    var flag = true
+                    for n in inverseLinkList[cur] {
+                        if visited[n] == nil {
+                            visited[n] = 1
+                            stack.insert(n, at: 0)
+                            flag = false
+                            break
+                        } else if visited[n] == 1 {
+                            return [Int]()
+                        }
+                    }
+                    if flag {
+                        stack.removeFirst()
+                        visited[cur] = 2
+                        ret.append(cur)
+                    }
+                }
+            }
+        }
+        
+        return ret.count == numCourses ? ret : [Int]()
     }
 }
 
@@ -3349,7 +3562,7 @@ class Solution560 {
 
 // MARK: - 152. 乘积最大子数组
 // 动态规划
-class Solution {
+class Solution152 {
     func maxProduct(_ nums: [Int]) -> Int {
         if nums.count < 1 {
             return 0
@@ -3367,5 +3580,235 @@ class Solution {
         }
         
         return ret
+    }
+}
+
+// MARK: - 131. 分割回文串
+/*
+ 将s分割成多个回文串组合，至少有一种情况（分割为单个字母）
+ 回溯
+ */
+class Solution131 {
+    
+    var ret = [[String]]()
+    
+    /// O(n)
+    func isPalindrome(_ l: Int, _ r: Int, _ s: [Character]) -> Bool {
+        var l = l
+        var r = r
+        while l < r {
+            if s[l] != s[r] {
+                return false
+            }
+            l += 1
+            r -= 1
+        }
+        return true
+    }
+    
+    /// O(n!)
+    func dfs(_ s: [Character], _ l: Int, _ curArray: [String]) {
+        if l == s.count {
+            ret.append(curArray)
+            return
+        }
+        // 拆解s
+        for r in l..<s.count {
+            var curArray = curArray
+            if isPalindrome(l, r, s) {
+                /// 这一步特别耗时 所以用dp每次都要执行这一步反而慢了。
+                let substring = String(s[l...r])
+                curArray.append(substring)
+                dfs(s, r+1, curArray)
+            }
+        }
+    }
+    
+    func partition(_ s: String) -> [[String]] {
+        let characters = Array(s)
+        dfs(characters, 0, [String]())
+        return ret
+    }
+}
+
+// MARK: - 72. 编辑距离 莱文斯坦距离
+/*
+ 动态规划
+ dp[i][j] 只能通过三种方式转换而来：[i-1,j-1] [i-1,j] [i,j-1]
+ 状态转移方程：
+ 如果：a[i]!=b[j]，
+ 那么：min_edist(i, j) 就等于：
+ min(min_edist(i-1,j)+1, min_edist(i,j-1)+1, min_edist(i-1,j-1)+1)
+ 如果：a[i]==b[j]，
+ 那么：min_edist(i, j) 就等于：
+ min(min_edist(i-1,j)+1, min_edist(i,j-1)+1，min_edist(i-1,j-1))
+*/
+class Solution72 {
+    func minDistance(_ word1: String, _ word2: String) -> Int {
+        if word1.count == 0 && word2.count == 0 {
+            return 0
+        } else if word1.count == 0 {
+            return word2.count
+        } else if word2.count == 0 {
+            return word1.count
+        }
+        let word1 = Array(word1)
+        let word2 = Array(word2)
+        var dp = [[Int]](repeating: [Int](repeating: 0, count: word2.count), count: word1.count)
+        
+        for i in 0..<word1.count {
+            if word2[0] == word1[i] {
+                dp[i][0] = i
+            } else if i == 0 {
+                dp[i][0] = 1
+            } else {
+                dp[i][0] = dp[i-1][0]+1
+            }
+        }
+        for j in 0..<word2.count {
+            if word1[0] == word2[j] {
+                dp[0][j] = j
+            } else if j == 0 {
+                dp[0][j] = 1
+            } else {
+                dp[0][j] = dp[0][j-1]+1
+            }
+        }
+        for i in 1..<word1.count {
+            for j in 1..<word2.count {
+                if word1[i] == word2[j] {
+                    dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1])
+                } else {
+                    dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+1)
+                }
+            }
+        }
+        return dp[word1.count-1][word2.count-1]
+    }
+}
+
+// MARK: - 148 链表排序，链表的归并 ***
+
+class Solution148 {
+    /*
+     链表的归并：
+     分：快慢指针取中间，断链分成两个区域
+     合：两个链表交叉连接
+     时间：O(nlog^n)
+     空间：递归空间：O(log^n)
+     */
+    func sortList(_ head: ListNode?) -> ListNode? {
+        // 归并
+        if head == nil || head?.next == nil {
+            return head
+        }
+        var left = head
+        let middle = middleNode(left!)
+        var right = middle.next
+        // 断链
+        middle.next = nil
+        left = sortList(left)
+        right = sortList(right)
+        return merge(left!, right!)
+    }
+    
+    func middleNode(_ head: ListNode) -> ListNode {
+        var fast: ListNode? = head.next
+        var slow = head
+        while fast != nil && fast!.next != nil {
+            fast = fast!.next?.next
+            slow = slow.next!
+        }
+        return slow
+    }
+    
+    func merge(_ left: ListNode, _ right: ListNode) -> ListNode {
+        let dummy = ListNode(0)
+        var node = dummy
+        var left: ListNode? = left
+        var right: ListNode? = right
+
+        while left != nil && right != nil {
+            if left!.val < right!.val {
+                node.next = left
+                left = left?.next
+            } else {
+                node.next = right
+                right = right?.next
+            }
+            node = node.next!
+        }
+        node.next = left != nil ? left : right
+        return dummy.next!
+    }
+}
+
+// 在 O(nlogn) 时间复杂度和常数级空间复杂度下，对链表进行排序
+// 为了常数空间采用：bottom-to-up
+class Solution148_2 {
+    /*
+     还是归并
+     分：利用 step 从1一个一组逐渐增大，采用cut来将链表切断分组
+     合：merge
+     */
+    func sortList(_ head: ListNode?) -> ListNode? {
+        guard head != nil && head?.next != nil else {
+            return head
+        }
+        var length = 0
+        var node = head
+        while node != nil {
+            node = node?.next
+            length += 1
+        }
+        
+        let dummy = ListNode(-1)
+        dummy.next = head
+
+        var step = 1
+        while step < length {
+            var tempHead = dummy
+            var current = dummy.next
+            while current != nil {
+                let left = current
+                let right = cut(current, step)
+                current = cut(right, step)
+                
+                tempHead.next = merge(left, right)
+                while tempHead.next != nil {tempHead = tempHead.next!}
+            }
+            step *= 2
+        }
+        return dummy.next
+    }
+    
+    func merge(_ left: ListNode?, _ right: ListNode?) -> ListNode {
+        let dummy = ListNode(0)
+        var node = dummy
+        var left = left
+        var right = right
+
+        while left != nil && right != nil {
+            if left!.val < right!.val {
+                node.next = left
+                left = left?.next
+            } else {
+                node.next = right
+                right = right?.next
+            }
+            node = node.next!
+        }
+        node.next = left != nil ? left : right
+        return dummy.next!
+    }
+    
+    func cut(_ node: ListNode?, _ step: Int) -> ListNode? {
+        var node = node
+        for _ in 1..<step {
+            node = node?.next
+        }
+        let temp = node?.next
+        node?.next = nil
+        return temp
     }
 }

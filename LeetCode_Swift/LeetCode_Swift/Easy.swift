@@ -1175,3 +1175,82 @@ public class Solution202 {
         }
     }
 }
+
+// MARK: - 680. 验证回文字符串 Ⅱ
+/*
+ 最多删除一个字符
+ */
+class Solution680 {
+    func validPalindrome(_ s: String) -> Bool {
+        // 双指针前后对比，当遇到不同时可跳过一个位置，分成两种情况继续验证
+        var l = 0
+        var r = s.count-1
+        var characters = [Character]()
+        for c in s {
+            characters.append(c)
+        }
+        while l < r {
+            if characters[l] == characters[r] {
+                l += 1
+                r -= 1
+            } else {
+                // 遇到不同时，跳过左边或右边的元素，两种情况继续验证，成功一个即可
+                var flag1 = true
+                var flag2 = true
+                var ll = l
+                var rr = r-1
+                while ll < rr {
+                    if characters[ll] != characters[rr] {
+                        flag1 = false
+                        break;
+                    }
+                    ll += 1
+                    rr -= 1
+                }
+                ll = l + 1
+                rr = r
+                while ll < rr {
+                    if characters[ll] != characters[rr] {
+                        flag2 = false
+                        break;
+                    }
+                    ll += 1
+                    rr -= 1
+                }
+                return flag1 || flag2
+            }
+        }
+        return true
+    }
+}
+
+// MARK: - 172. 阶乘后的尾数零个数 n!
+/*
+ 需求：O(log^n)
+ 把两个大数字相乘的流行方法它的成本是O((logx)⋅(logy))
+ */
+class Solution172 {
+    // 找因子5（25这种有两个因子）O(n)
+    func trailingZeroes1(_ n: Int) -> Int {
+        var ret = 0
+        for i in stride(from: 0, through: n, by: 5) {
+            var temp = i
+            while temp > 0 && temp%5 == 0 {
+                temp = temp/5
+                ret += 1
+            }
+        }
+        return ret
+    }
+    
+    // O(log^n)的找法
+    func trailingZeroes(_ n: Int) -> Int {
+        var ret = 0
+        var curDivisor = 5
+        while n >= curDivisor {
+            ret += n/curDivisor
+            curDivisor *= 5
+        }
+        return ret
+    }
+}
